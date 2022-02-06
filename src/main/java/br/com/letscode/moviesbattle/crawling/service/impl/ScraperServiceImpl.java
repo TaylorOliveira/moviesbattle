@@ -31,7 +31,7 @@ public class ScraperServiceImpl implements ScraperService {
     @Override
     public List<Movie> crawlingMoviesImdb() throws IOException {
 
-        List<MovieScraperRequest> scrapings = getScrapings();
+        List<MovieScraperRequest> scrapings = new ArrayList<>();
 
         Document document = Jsoup.connect(URL).get();
         Elements elementsListerItem = document.getElementsByClass(CLASS_LISTER_ITEM);
@@ -58,10 +58,6 @@ public class ScraperServiceImpl implements ScraperService {
 
     private Double getImdb(Element elementIR) {
         return utils.convertToDouble(elementIR.getElementsByTag(TAG_STRONG).text());
-    }
-
-    private ArrayList<MovieScraperRequest> getScrapings() {
-        return new ArrayList<>();
     }
 
     private void crawlingNameAndYear(MovieScraperRequest movieScraperRequest,

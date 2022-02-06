@@ -2,7 +2,7 @@ package br.com.letscode.moviesbattle.controller;
 
 import br.com.letscode.moviesbattle.controller.payload.request.login.LoginRequest;
 import br.com.letscode.moviesbattle.controller.payload.request.login.SignupRequest;
-import br.com.letscode.moviesbattle.controller.payload.response.JwtResponse;
+import br.com.letscode.moviesbattle.controller.payload.response.LoginResponse;
 import br.com.letscode.moviesbattle.controller.payload.response.MessageResponse;
 import br.com.letscode.moviesbattle.core.security.jwt.JwtUtils;
 import br.com.letscode.moviesbattle.core.security.service.impl.UserDetailsImpl;
@@ -62,12 +62,12 @@ public class AuthController {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
-        JwtResponse jwtResponse = getJwtResponse(jwt, userDetails, roles);
-        return ResponseEntity.ok(jwtResponse);
+        LoginResponse loginResponse = getJwtResponse(jwt, userDetails, roles);
+        return ResponseEntity.ok(loginResponse);
     }
 
-    private JwtResponse getJwtResponse(String jwt, UserDetailsImpl userDetails, List<String> roles) {
-        return JwtResponse.builder()
+    private LoginResponse getJwtResponse(String jwt, UserDetailsImpl userDetails, List<String> roles) {
+        return LoginResponse.builder()
                 .token(jwt)
                 .id(userDetails.getId())
                 .username(userDetails.getUsername())
