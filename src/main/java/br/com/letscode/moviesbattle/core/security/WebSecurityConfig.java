@@ -3,7 +3,6 @@ package br.com.letscode.moviesbattle.core.security;
 import br.com.letscode.moviesbattle.core.security.jwt.AuthEntryPointJwt;
 import br.com.letscode.moviesbattle.core.security.jwt.AuthTokenFilter;
 import br.com.letscode.moviesbattle.core.security.service.UserDetailsServiceImpl;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,7 +15,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
