@@ -1,6 +1,6 @@
-package br.com.letscode.moviesbattle.core.security.service;
+package br.com.letscode.moviesbattle.core.security.service.impl;
 
-import br.com.letscode.moviesbattle.model.User;
+import br.com.letscode.moviesbattle.entity.User;
 import br.com.letscode.moviesbattle.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,4 +1,4 @@
-package br.com.letscode.moviesbattle.model.enums;
+package br.com.letscode.moviesbattle.entity.enums;
 
 public enum ERole {
 

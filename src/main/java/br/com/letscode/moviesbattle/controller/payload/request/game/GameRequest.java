@@ -9,13 +9,13 @@ import lombok.Data;
 public class GameRequest {
 
     private UserRequest userRequest;
-    private List<RoundRequest> roundRequestList;
+    private List<RoundRequest> roundsRequest;
 
     @Data
     @Builder
     private static class RoundRequest {
 
-        private List<MovieRequest> movieRequestList;
+        private List<MovieRequest> moviesRequest;
     }
 
     @Data

@@ -1,6 +1,6 @@
 package br.com.letscode.moviesbattle.core.security.jwt;
 
-import br.com.letscode.moviesbattle.core.security.service.UserDetailsImpl;
+import br.com.letscode.moviesbattle.core.security.service.impl.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

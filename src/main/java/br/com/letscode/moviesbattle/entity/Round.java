@@ -1,4 +1,4 @@
-package br.com.letscode.moviesbattle.model;
+package br.com.letscode.moviesbattle.entity;
 
 import java.util.List;
 
@@ -8,5 +8,5 @@ public class Round {
 
     private Game game;
 
-    private List<Movie> movieList;
+    private List<Movie> movies;
 }

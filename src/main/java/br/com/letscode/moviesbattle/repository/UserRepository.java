@@ -2,7 +2,7 @@ package br.com.letscode.moviesbattle.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import br.com.letscode.moviesbattle.model.User;
+import br.com.letscode.moviesbattle.entity.User;
 import java.util.Optional;
 
 @Repository

@@ -1,4 +1,4 @@
-package br.com.letscode.moviesbattle.model;
+package br.com.letscode.moviesbattle.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
