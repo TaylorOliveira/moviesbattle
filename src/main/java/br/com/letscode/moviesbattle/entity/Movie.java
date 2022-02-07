@@ -28,4 +28,10 @@ public class Movie {
 
     @NotNull
     private Double imdb;
+
+    @NotNull
+    private Double totalVotes;
+
+    @NotNull
+    private Double points;
 }

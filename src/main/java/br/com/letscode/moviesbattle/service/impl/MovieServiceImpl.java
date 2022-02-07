@@ -13,7 +13,14 @@ public class MovieServiceImpl implements MovieService {
     @Autowired
     private MovieRepository movieRepository;
 
+    @Override
     public void createMovies(List<Movie> movies) {
         movieRepository.saveAll(movies);
+    }
+
+    @Override
+    public Movie getMoviesRandom() {
+
+        return null;
     }
 }

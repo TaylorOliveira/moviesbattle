@@ -12,4 +12,6 @@ public class MovieScraperRequest {
     private Double imdb;
 
     private String year;
+
+    private Double totalVotes;
 }

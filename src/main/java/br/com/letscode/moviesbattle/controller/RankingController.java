@@ -1,6 +1,6 @@
 package br.com.letscode.moviesbattle.controller;
 
-import br.com.letscode.moviesbattle.controller.payload.request.game.RankingRequest;
+import br.com.letscode.moviesbattle.controller.payload.request.RankingRequest;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;

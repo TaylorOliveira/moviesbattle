@@ -44,10 +44,23 @@ public class ScraperServiceImpl implements ScraperService {
 
             Elements elementsImdbRating = elementLI.getElementsByClass(CLASS_RATINGS_IMDB_RATING);
             crawlingImdbRanting(movie, elementsImdbRating);
+
+            Elements elementsTextMuted = elementLI.getElementsByClass(CLASS_TEXT_MUTED);
+            crawlingTotalVotes(movie, elementsTextMuted);
+
             scrapings.add(movie);
         }
 
         return ConvertToMovie.buildMovies(scrapings);
+    }
+
+    private void crawlingTotalVotes(MovieScraperRequest movie, Elements elementsTextMuted) {
+        movie.setTotalVotes(getTotalVotes(elementsTextMuted));
+    }
+
+    private Double getTotalVotes(Elements elementsTextMuted) {
+        return utils.convertToDouble(elementsTextMuted.get(3)
+                .getAllElements().get(2).text());
     }
 
     private void crawlingImdbRanting(MovieScraperRequest movie, Elements elementsImdbRating) {

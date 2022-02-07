@@ -1,4 +1,4 @@
-package br.com.letscode.moviesbattle.controller.payload.request.game;
+package br.com.letscode.moviesbattle.controller.payload.request;
 
 import lombok.Builder;
 import java.util.List;
