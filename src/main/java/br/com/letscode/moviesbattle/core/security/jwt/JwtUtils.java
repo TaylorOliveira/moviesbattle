@@ -1,6 +1,6 @@
 package br.com.letscode.moviesbattle.core.security.jwt;
 
-import br.com.letscode.moviesbattle.core.security.service.impl.UserDetailsImpl;
+import br.com.letscode.moviesbattle.core.security.service.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
