@@ -1,4 +1,4 @@
-package br.com.letscode.moviesbattle.infrastructure.crawling.config.handle.exception;
+package br.com.letscode.moviesbattle.infrastructure.crawling.domain.exceptionhandle.exception;
 
 public class ConvertToLongException extends RuntimeException {
 

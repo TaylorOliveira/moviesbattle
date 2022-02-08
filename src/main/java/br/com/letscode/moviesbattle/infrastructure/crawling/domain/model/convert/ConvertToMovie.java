@@ -1,6 +1,6 @@
-package br.com.letscode.moviesbattle.infrastructure.crawling.convert;
+package br.com.letscode.moviesbattle.infrastructure.crawling.domain.model.convert;
 
-import br.com.letscode.moviesbattle.infrastructure.crawling.modal.MovieScraperRequest;
+import br.com.letscode.moviesbattle.infrastructure.crawling.domain.model.MovieScraperRequest;
 import br.com.letscode.moviesbattle.domain.model.Movie;
 import java.util.stream.Collectors;
 import java.util.List;

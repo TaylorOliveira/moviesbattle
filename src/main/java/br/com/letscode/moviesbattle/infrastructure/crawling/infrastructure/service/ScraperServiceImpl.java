@@ -1,9 +1,9 @@
-package br.com.letscode.moviesbattle.infrastructure.crawling.service.impl;
+package br.com.letscode.moviesbattle.infrastructure.crawling.infrastructure.service;
 
-import br.com.letscode.moviesbattle.infrastructure.crawling.convert.ConvertToMovie;
-import br.com.letscode.moviesbattle.infrastructure.crawling.modal.MovieScraperRequest;
-import br.com.letscode.moviesbattle.infrastructure.crawling.service.ScraperService;
-import br.com.letscode.moviesbattle.infrastructure.crawling.utils.Utils;
+import br.com.letscode.moviesbattle.infrastructure.crawling.domain.model.convert.ConvertToMovie;
+import br.com.letscode.moviesbattle.infrastructure.crawling.domain.model.MovieScraperRequest;
+import br.com.letscode.moviesbattle.infrastructure.crawling.domain.service.ScraperService;
+import br.com.letscode.moviesbattle.infrastructure.crawling.infrastructure.utils.Utils;
 import br.com.letscode.moviesbattle.domain.model.Movie;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import static br.com.letscode.moviesbattle.infrastructure.crawling.config.constants.ScraperConstants.*;
+import static br.com.letscode.moviesbattle.infrastructure.crawling.domain.constants.CrawlingConstants.*;
 
 @Slf4j
 @Service

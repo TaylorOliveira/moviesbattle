@@ -1,7 +1,7 @@
-package br.com.letscode.moviesbattle.infrastructure.crawling.utils;
+package br.com.letscode.moviesbattle.infrastructure.crawling.infrastructure.utils;
 
-import br.com.letscode.moviesbattle.infrastructure.crawling.config.handle.exception.ConvertToLongException;
-import br.com.letscode.moviesbattle.infrastructure.crawling.config.handle.exception.RemoveParenthesisException;
+import br.com.letscode.moviesbattle.infrastructure.crawling.domain.exceptionhandle.exception.ConvertToLongException;
+import br.com.letscode.moviesbattle.infrastructure.crawling.domain.exceptionhandle.exception.RemoveParenthesisException;
 import org.springframework.stereotype.Service;
 
 @Service

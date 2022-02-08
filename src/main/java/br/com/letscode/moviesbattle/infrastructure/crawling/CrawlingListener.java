@@ -1,6 +1,6 @@
 package br.com.letscode.moviesbattle.infrastructure.crawling;
 
-import br.com.letscode.moviesbattle.infrastructure.crawling.service.ScraperService;
+import br.com.letscode.moviesbattle.infrastructure.crawling.domain.service.ScraperService;
 import br.com.letscode.moviesbattle.domain.model.Movie;
 import br.com.letscode.moviesbattle.domain.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;

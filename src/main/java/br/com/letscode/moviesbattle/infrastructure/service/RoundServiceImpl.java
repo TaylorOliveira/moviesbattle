@@ -1,5 +1,7 @@
 package br.com.letscode.moviesbattle.infrastructure.service;
 
+import br.com.letscode.moviesbattle.api.model.enums.ChoiceMovieEnum;
+import br.com.letscode.moviesbattle.core.security.service.LoggedInUser;
 import br.com.letscode.moviesbattle.domain.model.Game;
 import br.com.letscode.moviesbattle.domain.model.Movie;
 import br.com.letscode.moviesbattle.domain.model.Round;
@@ -33,14 +35,24 @@ public class RoundServiceImpl implements RoundService {
             Movie rightMovie = movieRepository.getRandomMovie();
             if (isRoundValid(game, leftMovie, rightMovie).isEmpty()) {
                 isNotValidPair = false;
-                round.setMovieLeft(leftMovie);
-                round.setRightMovie(rightMovie);
-                round.setStatus(RoundStatusEnum.NOT_PLAYED);
-                round.setGame(game);
-                round.setNumberRound(numberRound);
+                setMovie(game, numberRound, round, leftMovie, rightMovie);
             }
         }
         return saveRound(round);
+    }
+
+    @Override
+    public void validateRound(LoggedInUser loggedInUser, Long roundId, ChoiceMovieEnum choice) {
+
+    }
+
+    private void setMovie(Game game, int numberRound,
+                          Round round, Movie leftMovie, Movie rightMovie) {
+        round.setMovieLeft(leftMovie);
+        round.setRightMovie(rightMovie);
+        round.setStatus(RoundStatusEnum.NOT_PLAYED);
+        round.setGame(game);
+        round.setNumberRound(numberRound);
     }
 
     private int getNumberRound(Game game) {

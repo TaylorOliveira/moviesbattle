@@ -1,4 +1,4 @@
-package br.com.letscode.moviesbattle.infrastructure.crawling.modal;
+package br.com.letscode.moviesbattle.infrastructure.crawling.domain.model;
 
 import lombok.Builder;
 import lombok.Data;

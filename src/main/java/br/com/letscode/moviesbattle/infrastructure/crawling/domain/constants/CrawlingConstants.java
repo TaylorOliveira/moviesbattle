@@ -1,10 +1,10 @@
-package br.com.letscode.moviesbattle.infrastructure.crawling.config.constants;
+package br.com.letscode.moviesbattle.infrastructure.crawling.domain.constants;
 
 import lombok.NoArgsConstructor;
 import lombok.AccessLevel;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class ScraperConstants {
+public class CrawlingConstants {
 
     public static final String TAG_A = "a";
     public static final String TAG_STRONG = "strong";
