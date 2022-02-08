@@ -1,7 +1,9 @@
 package br.com.letscode.moviesbattle.api;
 
 import br.com.letscode.moviesbattle.api.model.enums.ChoiceMovieEnum;
-import br.com.letscode.moviesbattle.api.model.response.RoundGameResponse;
+import br.com.letscode.moviesbattle.api.model.payload.response.RoundGameResponse;
+import br.com.letscode.moviesbattle.api.model.payload.response.RoundGameResponse.GameResponse;
+import br.com.letscode.moviesbattle.api.model.payload.response.RoundValidateResponse;
 import br.com.letscode.moviesbattle.core.security.service.LoggedInUser;
 import br.com.letscode.moviesbattle.domain.service.GameService;
 import br.com.letscode.moviesbattle.domain.service.RoundService;
@@ -40,7 +42,9 @@ public class GameController {
 
         final LoggedInUser loggedInUser = (LoggedInUser) authentication.getPrincipal();
 
-        return ResponseEntity.ok(gameService.finalizeGame(gameId));
+        GameResponse gameResponse = gameService.finalizeGame(loggedInUser, gameId);
+
+        return ResponseEntity.ok(gameResponse);
     }
 
     @PutMapping("/quiz/validate/{roundId}")
@@ -51,14 +55,15 @@ public class GameController {
 
         final LoggedInUser loggedInUser = (LoggedInUser) authentication.getPrincipal();
 
-        roundService.processRound(loggedInUser, roundId, choice);
+        RoundValidateResponse roundGameResponse =
+                roundService.processRound(loggedInUser, roundId, choice);
 
-        return ResponseEntity.ok("");
+        return ResponseEntity.ok(roundGameResponse);
     }
 
     @PutMapping("/quiz")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> nextQuiz(@PathVariable Long id) {
-        return ResponseEntity.ok(gameService.finalizeGame(id));
+        return ResponseEntity.ok("");
     }
 }

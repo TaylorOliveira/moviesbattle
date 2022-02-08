@@ -11,7 +11,7 @@ public class MovieScraperRequest {
 
     private Double imdb;
 
-    private String year;
+    private String debutYear;
 
-    private String totalVotes;
+    private Double totalVotes;
 }

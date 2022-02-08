@@ -1,7 +1,7 @@
 package br.com.letscode.moviesbattle.infrastructure.crawling.infrastructure.utils;
 
-import br.com.letscode.moviesbattle.infrastructure.crawling.domain.exceptionhandle.exception.ConvertToLongException;
-import br.com.letscode.moviesbattle.infrastructure.crawling.domain.exceptionhandle.exception.RemoveParenthesisException;
+import br.com.letscode.moviesbattle.infrastructure.crawling.domain.exceptionhandler.exception.ConvertToLongException;
+import br.com.letscode.moviesbattle.infrastructure.crawling.domain.exceptionhandler.exception.RemoveParenthesisException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -27,5 +27,9 @@ public class Utils {
         } catch (Exception exception) {
             throw new RemoveParenthesisException(exception.getLocalizedMessage());
         }
+    }
+
+    public boolean validateString(String s) {
+        return s != null && !s.equals("");
     }
 }

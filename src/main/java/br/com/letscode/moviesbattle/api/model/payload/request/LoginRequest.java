@@ -1,4 +1,4 @@
-package br.com.letscode.moviesbattle.api.model.request.login;
+package br.com.letscode.moviesbattle.api.model.payload.request;
 
 import lombok.Data;
 import javax.validation.constraints.NotBlank;

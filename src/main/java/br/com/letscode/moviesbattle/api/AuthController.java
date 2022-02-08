@@ -1,9 +1,9 @@
 package br.com.letscode.moviesbattle.api;
 
-import br.com.letscode.moviesbattle.api.model.request.login.LoginRequest;
-import br.com.letscode.moviesbattle.api.model.request.login.SignupRequest;
-import br.com.letscode.moviesbattle.api.model.response.LoginResponse;
-import br.com.letscode.moviesbattle.api.model.response.MessageResponse;
+import br.com.letscode.moviesbattle.api.model.payload.request.LoginRequest;
+import br.com.letscode.moviesbattle.api.model.payload.request.SignupRequest;
+import br.com.letscode.moviesbattle.api.model.payload.response.LoginResponse;
+import br.com.letscode.moviesbattle.api.model.payload.response.MessageResponse;
 import br.com.letscode.moviesbattle.core.security.jwt.JwtUtils;
 import br.com.letscode.moviesbattle.core.security.service.LoggedInUser;
 import br.com.letscode.moviesbattle.domain.model.Role;

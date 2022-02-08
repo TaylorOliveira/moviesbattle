@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -24,9 +25,13 @@ public class Game {
     @JoinColumn(name = "USER_ID")
     private User user;
 
-    private Long totalErrors;
+    @Column(columnDefinition = "int default 0")
+    private int totalErrors;
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
     private GameStatusEnum status;
+
+    @OneToMany(mappedBy = "game", fetch = FetchType.EAGER)
+    private List<Round> rounds;
 }

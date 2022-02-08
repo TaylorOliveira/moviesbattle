@@ -1,4 +1,4 @@
-package br.com.letscode.moviesbattle.infrastructure.crawling.domain.exceptionhandle.exception;
+package br.com.letscode.moviesbattle.infrastructure.crawling.domain.exceptionhandler.exception;
 
 public class RemoveParenthesisException extends RuntimeException {
 

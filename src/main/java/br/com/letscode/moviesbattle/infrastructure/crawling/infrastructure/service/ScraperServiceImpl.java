@@ -14,8 +14,12 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import java.io.IOException;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+
 import static br.com.letscode.moviesbattle.infrastructure.crawling.domain.constants.CrawlingConstants.*;
 
 @Slf4j
@@ -39,30 +43,43 @@ public class ScraperServiceImpl implements ScraperService {
         for(Element elementLI : elementsListerItem) {
             MovieScraperRequest movie = MovieScraperRequest.builder().build();
 
-            Elements elementsListerItemHeader = elementLI.getElementsByClass(CLASS_LISTER_ITEM_HEADER);
+            Elements elementsListerItemHeader =
+                    elementLI.getElementsByClass(CLASS_LISTER_ITEM_HEADER);
             crawlingNameAndYear(movie, elementsListerItemHeader);
 
-            Elements elementsImdbRating = elementLI.getElementsByClass(CLASS_RATINGS_IMDB_RATING);
+            Elements elementsImdbRating =
+                    elementLI.getElementsByClass(CLASS_RATINGS_IMDB_RATING);
             crawlingImdbRanting(movie, elementsImdbRating);
 
             Elements elementsTextMuted = elementLI.getElementsByClass(CLASS_TEXT_MUTED);
             crawlingTotalVotes(movie, elementsTextMuted);
 
-            scrapings.add(movie);
+            if (roleToAdd(movie)) {
+                scrapings.add(movie);
+            }
         }
 
         return ConvertToMovie.buildMovies(scrapings);
+    }
+
+    private boolean roleToAdd(MovieScraperRequest movie) {
+        return movie.getTotalVotes() != null &&
+               movie.getName() != null &&
+               movie.getImdb() != null &&
+               movie.getDebutYear() != null;
     }
 
     private void crawlingTotalVotes(MovieScraperRequest movie, Elements elementsTextMuted) {
         movie.setTotalVotes(getTotalVotes(elementsTextMuted));
     }
 
-    private String getTotalVotes(Elements elementsTextMuted) {
+    private Double getTotalVotes(Elements elementsTextMuted) {
         try {
-            return elementsTextMuted.get(3).getAllElements().get(2).text();
-        } catch (IndexOutOfBoundsException exception) {
-            return "VOTES_NOT_COMPUTED";
+            String totalVotes = elementsTextMuted.get(3).getAllElements().get(2).text();
+            NumberFormat format = NumberFormat.getInstance(Locale.UK);
+            return format.parse(totalVotes).doubleValue();
+        } catch (IndexOutOfBoundsException | ParseException exception) {
+            return null;
         }
     }
 
@@ -73,18 +90,42 @@ public class ScraperServiceImpl implements ScraperService {
     }
 
     private Double getImdb(Element elementIR) {
-        return utils.convertToDouble(elementIR.getElementsByTag(TAG_STRONG).text());
+        try {
+            return utils.convertToDouble(elementIR
+                    .getElementsByTag(TAG_STRONG).text());
+        } catch (Exception exception) {
+            return null;
+        }
     }
 
     private void crawlingNameAndYear(MovieScraperRequest movieScraperRequest,
                                      Elements elementsListerItemHeader) {
         for (Element elementLIH : elementsListerItemHeader) {
-            movieScraperRequest.setName(elementLIH.getElementsByTag(TAG_A).text());
-            movieScraperRequest.setYear(getYear(elementLIH));
+            movieScraperRequest.setName(getRoleName(elementLIH));
+            movieScraperRequest.setDebutYear(getRoleDebutYear(elementLIH));
         }
     }
 
-    private String getYear(Element elementLIH) {
-        return elementLIH.getElementsByClass(CLASS_LISTER_ITEM_YEAR).text();
+    private String getRoleName(Element elementLIH) {
+        try {
+            String name = elementLIH.getElementsByTag(TAG_A).text();
+            return getString(name);
+        } catch (Exception exception) {
+            return null;
+        }
+    }
+
+    private String getRoleDebutYear(Element elementLIH) {
+        try {
+            String debutYear = elementLIH
+                    .getElementsByClass(CLASS_LISTER_ITEM_YEAR).text();
+            return getString(debutYear);
+        } catch (Exception exception) {
+            return null;
+        }
+    }
+
+    private String getString(String s) {
+        return utils.validateString(s) ? s : null;
     }
 }

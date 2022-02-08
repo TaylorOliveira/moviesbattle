@@ -10,16 +10,16 @@ public abstract class ConvertToMovie {
     public static Movie fromEntity(MovieScraperRequest movie) {
         return Movie.builder()
                 .name(movie.getName())
-                .debutYear(movie.getYear())
+                .debutYear(movie.getDebutYear())
                 .imdb(movie.getImdb())
                 .totalVotes(movie.getTotalVotes())
-//                .points(getPoints(movie))
+                .totalPoints(getPoints(movie))
                 .build();
     }
 
-//    private static double getPoints(MovieScraperRequest movieScraperRequest) {
-//        return movieScraperRequest.getImdb() * Float.parseFloat(movieScraperRequest.getTotalVotes());
-//    }
+    private static double getPoints(MovieScraperRequest movieScraperRequest) {
+        return movieScraperRequest.getImdb() * movieScraperRequest.getTotalVotes();
+    }
 
     public static List<Movie> buildMovies(List<MovieScraperRequest> movies) {
         return movies.stream().map(ConvertToMovie::fromEntity)

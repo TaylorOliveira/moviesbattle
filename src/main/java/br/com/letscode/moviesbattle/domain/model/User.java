@@ -46,9 +46,12 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
     private Set<Role> roles = new HashSet<>();
 
+    @Column(columnDefinition = "int default 0")
     private int totalRoundsPlayed;
 
+    @Column(columnDefinition = "int default 0")
     private int totalCorrectRounds;
 
-    private double totalPoints;
+    @Column(columnDefinition = "double default 0")
+    private double score;
 }
