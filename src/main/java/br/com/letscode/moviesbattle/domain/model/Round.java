@@ -1,5 +1,6 @@
 package br.com.letscode.moviesbattle.domain.model;
 
+import br.com.letscode.moviesbattle.api.model.enums.ChoiceMovieEnum;
 import br.com.letscode.moviesbattle.domain.model.enums.RoundStatusEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,13 +27,19 @@ public class Round {
 
     @ManyToOne
     @JoinColumn(name = "LEFT_MOVIE_ID")
-    private Movie movieLeft;
+    private Movie leftMovie;
 
     @ManyToOne
     @JoinColumn(name = "RIGHT_MOVIE_ID")
     private Movie rightMovie;
 
     private int numberRound;
+
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20)
+    private ChoiceMovieEnum choice;
+
+    private boolean isCorrect;
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20)

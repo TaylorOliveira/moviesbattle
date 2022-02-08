@@ -9,5 +9,5 @@ public interface RoundService {
 
     Round initializeRound(Game game);
 
-    void validateRound(LoggedInUser loggedInUser, Long roundId, ChoiceMovieEnum choice);
+    void processRound(LoggedInUser loggedInUser, Long roundId, ChoiceMovieEnum choice);
 }

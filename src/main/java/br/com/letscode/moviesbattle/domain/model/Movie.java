@@ -33,6 +33,5 @@ public class Movie {
     @NotNull
     private String totalVotes;
 
-    @NotNull
-    private Float points;
+    private Float totalPoints;
 }

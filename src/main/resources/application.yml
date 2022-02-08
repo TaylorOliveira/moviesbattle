@@ -24,3 +24,4 @@ moviesbattle:
     jwtSecret: "16bb1f08-877d-11ec-a8a3-0242ac120002"
     jwtExpirationMs: 86400000
     urlScraping: "https://www.imdb.com/search/keyword/?keywords=ice&ref_=fn_kw_kw_1"
+    totalErrors: 3

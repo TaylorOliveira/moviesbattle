@@ -17,10 +17,4 @@ public class MovieServiceImpl implements MovieService {
     public void createMovies(List<Movie> movies) {
         movieRepository.saveAll(movies);
     }
-
-    @Override
-    public Movie getMoviesRandom() {
-
-        return null;
-    }
 }

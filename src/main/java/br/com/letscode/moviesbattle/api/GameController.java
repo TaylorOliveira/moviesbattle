@@ -3,7 +3,6 @@ package br.com.letscode.moviesbattle.api;
 import br.com.letscode.moviesbattle.api.model.enums.ChoiceMovieEnum;
 import br.com.letscode.moviesbattle.api.model.response.RoundGameResponse;
 import br.com.letscode.moviesbattle.core.security.service.LoggedInUser;
-import br.com.letscode.moviesbattle.domain.model.Game;
 import br.com.letscode.moviesbattle.domain.service.GameService;
 import br.com.letscode.moviesbattle.domain.service.RoundService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +51,7 @@ public class GameController {
 
         final LoggedInUser loggedInUser = (LoggedInUser) authentication.getPrincipal();
 
-        roundService.validateRound(loggedInUser, roundId, choice);
+        roundService.processRound(loggedInUser, roundId, choice);
 
         return ResponseEntity.ok("");
     }

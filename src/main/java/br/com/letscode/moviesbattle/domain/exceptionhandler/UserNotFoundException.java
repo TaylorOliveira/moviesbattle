@@ -1,4 +1,4 @@
-package br.com.letscode.moviesbattle.api.exceptionhandler.exception;
+package br.com.letscode.moviesbattle.domain.exceptionhandler;
 
 public class UserNotFoundException extends RuntimeException {
 

@@ -1,6 +1,6 @@
 package br.com.letscode.moviesbattle.infrastructure.service;
 
-import br.com.letscode.moviesbattle.api.exceptionhandler.exception.UserNotFoundException;
+import br.com.letscode.moviesbattle.domain.exceptionhandler.UserNotFoundException;
 import br.com.letscode.moviesbattle.api.model.convert.ConvertToGameResponse;
 import br.com.letscode.moviesbattle.api.model.convert.ConvertToRoundGameResponse;
 import br.com.letscode.moviesbattle.api.model.response.GameResponse;

@@ -2,6 +2,6 @@ package br.com.letscode.moviesbattle.domain.model.enums;
 
 public enum RoundStatusEnum {
 
-    PLAY,
+    PLAYED,
     NOT_PLAYED
 }

@@ -10,7 +10,7 @@ public abstract class ConvertToRoundGameResponse {
         return RoundGameResponse.builder()
                 .id(game.getId())
                 .game(ConvertToGameResponse.fromEntity(game))
-                .leftMovie(ConvertToMovieResponse.fromEntity(round.getMovieLeft()))
+                .leftMovie(ConvertToMovieResponse.fromEntity(round.getLeftMovie()))
                 .rightMovie(ConvertToMovieResponse.fromEntity(round.getRightMovie()))
                 .round(round.getNumberRound())
                 .build();

@@ -6,6 +6,4 @@ import java.util.List;
 public interface MovieService {
 
     void createMovies(List<Movie> movies);
-
-    Movie getMoviesRandom();
 }

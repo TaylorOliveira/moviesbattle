@@ -2,6 +2,7 @@ package br.com.letscode.moviesbattle.domain.repository;
 
 import br.com.letscode.moviesbattle.domain.model.Game;
 import br.com.letscode.moviesbattle.domain.model.Round;
+import br.com.letscode.moviesbattle.domain.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

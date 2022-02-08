@@ -24,8 +24,6 @@ public class Game {
     @JoinColumn(name = "USER_ID")
     private User user;
 
-    private Long totalGamePoint;
-
     private Long totalErrors;
 
     @Enumerated(EnumType.STRING)

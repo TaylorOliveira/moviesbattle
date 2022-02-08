@@ -45,4 +45,10 @@ public class User {
             joinColumns = @JoinColumn(name = "USER_ID"),
             inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
     private Set<Role> roles = new HashSet<>();
+
+    private int totalRoundsPlayed;
+
+    private int totalCorrectRounds;
+
+    private double totalPoints;
 }
