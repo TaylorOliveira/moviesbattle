@@ -53,7 +53,11 @@ public class RoundServiceImpl implements RoundService {
             Movie rightMovieEntity = movieRepository.getRandomMovie();
             if (isRoundValid(gameEntity, leftMovieEntity, rightMovieEntity).isEmpty()) {
                 isNotValidPair = false;
-                setMovieData(gameEntity, numberRound, roundEntity, leftMovieEntity, rightMovieEntity);
+                roundEntity.setLeftMovie(leftMovieEntity);
+                roundEntity.setRightMovie(rightMovieEntity);
+                roundEntity.setStatus(RoundStatusEnum.NOT_PLAYED);
+                roundEntity.setGame(gameEntity);
+                roundEntity.setNumberRound(numberRound);
             }
         }
         return roundRepository.save(roundEntity);
@@ -86,15 +90,6 @@ public class RoundServiceImpl implements RoundService {
 
     private boolean isRoundPlayed(Round round) {
         return round.getStatus() == RoundStatusEnum.PLAYED;
-    }
-
-    private void setMovieData(Game gameEntity, int numberRound, Round roundEntity,
-                              Movie leftMovieEntity, Movie rightMovieEntity) {
-        roundEntity.setLeftMovie(leftMovieEntity);
-        roundEntity.setRightMovie(rightMovieEntity);
-        roundEntity.setStatus(RoundStatusEnum.NOT_PLAYED);
-        roundEntity.setGame(gameEntity);
-        roundEntity.setNumberRound(numberRound);
     }
 
     private int getNumberRound(Game gameEntity) {
