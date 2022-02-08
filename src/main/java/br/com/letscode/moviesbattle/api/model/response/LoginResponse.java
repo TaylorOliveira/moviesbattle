@@ -1,4 +1,4 @@
-package br.com.letscode.moviesbattle.api.payload.response;
+package br.com.letscode.moviesbattle.api.model.response;
 
 import lombok.Builder;
 import java.util.List;
@@ -9,12 +9,8 @@ import lombok.Data;
 public class LoginResponse {
 
     private String token;
-
     private Long id;
-
     private String username;
-
     private String email;
-
     private List<String> roles;
 }

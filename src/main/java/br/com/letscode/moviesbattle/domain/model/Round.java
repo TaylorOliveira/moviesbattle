@@ -25,12 +25,14 @@ public class Round {
     private Game game;
 
     @ManyToOne
-    @JoinColumn(name = "MOVIE_X_ID")
-    private Movie movieX;
+    @JoinColumn(name = "LEFT_MOVIE_ID")
+    private Movie movieLeft;
 
     @ManyToOne
-    @JoinColumn(name = "MOVIE_Y_ID")
-    private Movie movieY;
+    @JoinColumn(name = "RIGHT_MOVIE_ID")
+    private Movie rightMovie;
+
+    private int numberRound;
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20)

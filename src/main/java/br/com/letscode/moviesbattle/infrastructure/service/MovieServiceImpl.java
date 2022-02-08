@@ -1,4 +1,4 @@
-package br.com.letscode.moviesbattle.infrastructure.service.impl;
+package br.com.letscode.moviesbattle.infrastructure.service;
 
 import br.com.letscode.moviesbattle.domain.model.Movie;
 import br.com.letscode.moviesbattle.domain.repository.MovieRepository;

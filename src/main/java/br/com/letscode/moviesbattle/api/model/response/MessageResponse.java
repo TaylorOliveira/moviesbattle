@@ -1,4 +1,4 @@
-package br.com.letscode.moviesbattle.api.payload.response;
+package br.com.letscode.moviesbattle.api.model.response;
 
 import lombok.Builder;
 import lombok.Data;

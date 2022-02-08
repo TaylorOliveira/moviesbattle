@@ -1,8 +1,9 @@
 package br.com.letscode.moviesbattle.domain.service;
 
-import br.com.letscode.moviesbattle.domain.model.Game;
+import br.com.letscode.moviesbattle.api.model.response.RoundGameResponse;
+import br.com.letscode.moviesbattle.core.security.service.LoggedInUser;
 
 public interface GameService {
 
-    Game initializeGame(Long userId);
+    RoundGameResponse initializeGame(LoggedInUser loggedInUser);
 }

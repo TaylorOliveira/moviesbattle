@@ -10,7 +10,7 @@ public abstract class ConvertToMovie {
     public static Movie fromEntity(MovieScraperRequest movie) {
         return Movie.builder()
                 .name(movie.getName())
-                .year(movie.getYear())
+                .debutYear(movie.getYear())
                 .imdb(movie.getImdb())
                 .totalVotes(movie.getTotalVotes())
 //                .points(getPoints(movie))

@@ -25,7 +25,7 @@ public class Movie {
     private String name;
 
     @NotNull
-    private String year;
+    private String debutYear;
 
     @NotNull
     private Double imdb;
@@ -33,6 +33,6 @@ public class Movie {
     @NotNull
     private String totalVotes;
 
-//    @NotNull
-//    private Double points;
+    @NotNull
+    private Float points;
 }

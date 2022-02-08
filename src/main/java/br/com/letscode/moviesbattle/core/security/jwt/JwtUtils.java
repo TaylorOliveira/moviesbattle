@@ -1,6 +1,6 @@
 package br.com.letscode.moviesbattle.core.security.jwt;
 
-import br.com.letscode.moviesbattle.core.security.service.UserDetailsImpl;
+import br.com.letscode.moviesbattle.core.security.service.LoggedInUser;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,7 +19,7 @@ public class JwtUtils {
     private int jwtExpirationMs;
 
     public String generateJwtToken(Authentication authentication) {
-        UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
+        LoggedInUser userPrincipal = (LoggedInUser) authentication.getPrincipal();
 
         return Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))

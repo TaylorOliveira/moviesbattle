@@ -1,11 +1,11 @@
 package br.com.letscode.moviesbattle.api;
 
-import br.com.letscode.moviesbattle.api.payload.request.login.LoginRequest;
-import br.com.letscode.moviesbattle.api.payload.request.login.SignupRequest;
-import br.com.letscode.moviesbattle.api.payload.response.LoginResponse;
-import br.com.letscode.moviesbattle.api.payload.response.MessageResponse;
+import br.com.letscode.moviesbattle.api.model.request.login.LoginRequest;
+import br.com.letscode.moviesbattle.api.model.request.login.SignupRequest;
+import br.com.letscode.moviesbattle.api.model.response.LoginResponse;
+import br.com.letscode.moviesbattle.api.model.response.MessageResponse;
 import br.com.letscode.moviesbattle.core.security.jwt.JwtUtils;
-import br.com.letscode.moviesbattle.core.security.service.UserDetailsImpl;
+import br.com.letscode.moviesbattle.core.security.service.LoggedInUser;
 import br.com.letscode.moviesbattle.domain.model.Role;
 import br.com.letscode.moviesbattle.domain.model.User;
 import br.com.letscode.moviesbattle.domain.model.enums.ERole;
@@ -57,16 +57,19 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
 
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        List<String> roles = userDetails.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.toList());
+        LoggedInUser loggedInUser = (LoggedInUser) authentication.getPrincipal();
 
-        LoginResponse loginResponse = getJwtResponse(jwt, userDetails, roles);
+        LoginResponse loginResponse = getJwtResponse(jwt, loggedInUser, getRoles(loggedInUser));
         return ResponseEntity.ok(loginResponse);
     }
 
-    private LoginResponse getJwtResponse(String jwt, UserDetailsImpl userDetails, List<String> roles) {
+    private List<String> getRoles(LoggedInUser loggedInUser) {
+        return loggedInUser.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList());
+    }
+
+    private LoginResponse getJwtResponse(String jwt, LoggedInUser userDetails, List<String> roles) {
         return LoginResponse.builder()
                 .token(jwt)
                 .id(userDetails.getId())
