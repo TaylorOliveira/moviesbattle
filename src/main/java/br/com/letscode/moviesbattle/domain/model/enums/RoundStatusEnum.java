@@ -1,7 +1,7 @@
 package br.com.letscode.moviesbattle.domain.model.enums;
 
-public enum StatusGame {
+public enum RoundStatusEnum {
 
-    RUNNING,
-    FINALIZED
+    PLAY,
+    NOT_PLAYED
 }

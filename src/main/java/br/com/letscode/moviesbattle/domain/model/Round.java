@@ -1,6 +1,6 @@
 package br.com.letscode.moviesbattle.domain.model;
 
-import br.com.letscode.moviesbattle.domain.model.enums.StatusRound;
+import br.com.letscode.moviesbattle.domain.model.enums.RoundStatusEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -36,5 +36,5 @@ public class Round {
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
-    private StatusRound status;
+    private RoundStatusEnum status;
 }

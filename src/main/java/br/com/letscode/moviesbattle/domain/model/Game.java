@@ -1,6 +1,6 @@
 package br.com.letscode.moviesbattle.domain.model;
 
-import br.com.letscode.moviesbattle.domain.model.enums.StatusGame;
+import br.com.letscode.moviesbattle.domain.model.enums.GameStatusEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,5 +30,5 @@ public class Game {
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
-    private StatusGame status;
+    private GameStatusEnum status;
 }

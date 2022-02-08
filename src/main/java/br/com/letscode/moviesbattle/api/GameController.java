@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/game")
@@ -29,7 +27,9 @@ public class GameController {
         return ResponseEntity.ok(roundGame);
     }
 
-    public ResponseEntity<?> finalizeGame() {
-
+    @PutMapping("/finalize/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+    public ResponseEntity<?> finalizeGame(@PathVariable Long id) {
+        return ResponseEntity.ok(gameService.finalizeGame(id));
     }
 }
