@@ -6,7 +6,7 @@ import br.com.letscode.moviesbattle.core.security.service.LoggedInUser;
 
 public interface GameService {
 
-    RoundGameResponse initializeGame(LoggedInUser loggedInUser);
+    RoundGameResponse gameProcess(LoggedInUser loggedInUser);
 
     GameResponse finalizeGame(LoggedInUser loggedInUser, Long id);
 }

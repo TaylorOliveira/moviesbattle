@@ -8,7 +8,7 @@ import lombok.Data;
 @Builder
 public class RoundValidateResponse {
 
-    private Long id;
+    private Long roundId;
     private boolean isCorrectRound;
     private RoundStatusEnum status;
     private int numberRound;

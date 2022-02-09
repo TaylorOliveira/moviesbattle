@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 
 @RestController
@@ -31,9 +30,20 @@ public class GameController {
 
         final LoggedInUser loggedInUser = (LoggedInUser) authentication.getPrincipal();
 
-        RoundGameResponse roundGame = gameService.initializeGame(loggedInUser);
+        RoundGameResponse roundGame = gameService.gameProcess(loggedInUser);
         return ResponseEntity.ok(roundGame);
     }
+
+    @PostMapping("/next-quiz")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+    public ResponseEntity<?> nextGame(final Authentication authentication) {
+
+        final LoggedInUser loggedInUser = (LoggedInUser) authentication.getPrincipal();
+
+        RoundGameResponse roundGameResponse = gameService.gameProcess(loggedInUser);
+        return ResponseEntity.ok(roundGameResponse);
+    }
+
 
     @PutMapping("/finalize/{gameId}")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
@@ -43,7 +53,6 @@ public class GameController {
         final LoggedInUser loggedInUser = (LoggedInUser) authentication.getPrincipal();
 
         GameResponse gameResponse = gameService.finalizeGame(loggedInUser, gameId);
-
         return ResponseEntity.ok(gameResponse);
     }
 
@@ -57,13 +66,6 @@ public class GameController {
 
         RoundValidateResponse roundGameResponse =
                 roundService.processRound(loggedInUser, roundId, choice);
-
         return ResponseEntity.ok(roundGameResponse);
-    }
-
-    @PutMapping("/quiz")
-    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
-    public ResponseEntity<?> nextQuiz(@PathVariable Long id) {
-        return ResponseEntity.ok("");
     }
 }

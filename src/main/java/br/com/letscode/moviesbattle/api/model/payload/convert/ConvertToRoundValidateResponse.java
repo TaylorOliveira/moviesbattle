@@ -7,7 +7,7 @@ public abstract class ConvertToRoundValidateResponse {
 
     public static RoundValidateResponse fromEntity(Round round) {
         return RoundValidateResponse.builder()
-                .id(round.getId())
+                .roundId(round.getId())
                 .isCorrectRound(round.isCorrect())
                 .status(round.getStatus())
                 .numberRound(round.getNumberRound())

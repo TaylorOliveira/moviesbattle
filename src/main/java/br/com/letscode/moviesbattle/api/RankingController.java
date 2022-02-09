@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 public class RankingController {
 
     @GetMapping
-    public ResponseEntity<RankingRequest> getRanking() {
+    public ResponseEntity<?> getRanking() {
         return ResponseEntity.ok(RankingRequest.builder().build());
     }
 }

@@ -34,12 +34,13 @@ public class GameServiceImpl implements GameService {
     @Autowired
     private RoundService roundService;
 
-    public RoundGameResponse initializeGame(LoggedInUser loggedInUser) {
+    public RoundGameResponse gameProcess(LoggedInUser loggedInUser) {
         User userEntity = getUser(loggedInUser);
 
         Game gameEntityRunning = checkIsGameRunning(userEntity);
 
         if (gameEntityRunning != null) {
+
             Round roundEntityNotPayed = getRoundNotPayed(gameEntityRunning);
 
             if (roundEntityNotPayed != null) {
