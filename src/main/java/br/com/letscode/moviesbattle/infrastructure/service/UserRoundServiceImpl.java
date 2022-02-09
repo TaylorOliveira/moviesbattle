@@ -39,11 +39,11 @@ public class UserRoundServiceImpl implements UserRoundService {
     }
 
     private int getTotalCorrectRounds(int totalCorrectRounds) {
-        return totalCorrectRounds++;
+        return totalCorrectRounds + 1;
     }
 
     private int getTotalRoundsPlayed(int totalRoundsPlayed) {
-        return totalRoundsPlayed++;
+        return totalRoundsPlayed + 1;
     }
 
     private double getScoreUser(User userEntity) {

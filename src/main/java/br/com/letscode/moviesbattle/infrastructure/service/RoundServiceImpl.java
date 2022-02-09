@@ -77,17 +77,14 @@ public class RoundServiceImpl implements RoundService {
 
         roundEntity = roundChoiceService
                 .validateSelectedMovieInRound(userChoice, roundEntity);
+        roundRepository.save(roundEntity);
 
         Game gameEntity = gameUpdateService
                 .updateGameTotalErrors(roundEntity);
+        gameUpdateService.save(gameEntity);
 
         User userEntity =  userRoundService
                 .updateUserInformationWithRoundResult(roundEntity);
-
-        roundRepository.save(roundEntity);
-
-        gameUpdateService.save(gameEntity);
-
         userRoundService.save(userEntity);
 
         return ConvertToRoundValidateResponse.fromResponse(roundEntity);
@@ -114,8 +111,7 @@ public class RoundServiceImpl implements RoundService {
     }
 
     private int addRound(List<Round> roundsEntity) {
-        int numberRound = roundsEntity.size();
-        return numberRound++;
+        return roundsEntity.size() + 1;
     }
 
     private Optional<Round> isRoundValid(Game gameEntity, Movie leftMovieEntity,

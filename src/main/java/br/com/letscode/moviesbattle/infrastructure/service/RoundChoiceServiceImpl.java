@@ -12,7 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 public class RoundChoiceServiceImpl implements RoundChoiceService {
 
     @Override
-    public Round validateSelectedMovieInRound(ChoiceMovieEnum choice, Round roundEntity) {
+    public Round validateSelectedMovieInRound(ChoiceMovieEnum choice,
+                                              Round roundEntity) {
         ChoiceMovieEnum choiceCorrect = getCorrectOption(roundEntity);
         roundEntity.setCorrect(choiceCorrect == choice);
         roundEntity.setChoice(choiceCorrect);

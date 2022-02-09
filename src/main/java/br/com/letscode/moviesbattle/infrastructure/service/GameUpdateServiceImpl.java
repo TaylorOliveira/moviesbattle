@@ -26,14 +26,14 @@ public class GameUpdateServiceImpl implements GameUpdateService {
     public Game updateGameTotalErrors(Round roundEntity) {
         Game gameEntity = roundEntity.getGame();
         int totalRounds = gameEntity.getTotalRounds();
-        gameEntity.setTotalRounds(totalRounds++);
+        gameEntity.setTotalRounds(totalRounds + 1);
 
         if (ruleTotalErrors(roundEntity, gameEntity)) {
             throw new ErrorException(GAME_TOTAL_ERRORS);
 
         } else if (isNotCorrect(roundEntity)) {
             int numberErrors = gameEntity.getTotalErrors();
-            gameEntity.setTotalErrors(numberErrors++);
+            gameEntity.setTotalErrors(numberErrors + 1);
         }
 
         return gameEntity;
