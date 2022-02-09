@@ -1,26 +1,28 @@
 package br.com.letscode.moviesbattle.infrastructure.crawling.infrastructure.service;
 
+import br.com.letscode.moviesbattle.infrastructure.crawling.domain.config.exception.GeneralException;
 import br.com.letscode.moviesbattle.infrastructure.crawling.domain.model.convert.ConvertToMovie;
 import br.com.letscode.moviesbattle.infrastructure.crawling.domain.model.MovieScraperRequest;
 import br.com.letscode.moviesbattle.infrastructure.crawling.domain.service.ScraperService;
 import br.com.letscode.moviesbattle.infrastructure.crawling.infrastructure.utils.Utils;
-import br.com.letscode.moviesbattle.domain.model.Movie;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import br.com.letscode.moviesbattle.domain.model.Movie;
 import org.springframework.stereotype.Service;
-import org.jsoup.Jsoup;
+import lombok.extern.slf4j.Slf4j;
+import org.jsoup.select.Elements;
+import java.text.ParseException;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-import java.io.IOException;
 import java.text.NumberFormat;
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
+import org.jsoup.Jsoup;
+import java.util.List;
 
-import static br.com.letscode.moviesbattle.infrastructure.crawling.domain.constants.CrawlingConstants.*;
+import static br.com.letscode.moviesbattle.infrastructure.crawling.domain.config.exception.enums.CrawlingExceptionEnum.CONVERT_TO_LONG_DETAIL;
+import static br.com.letscode.moviesbattle.infrastructure.crawling.domain.config.exception.enums.CrawlingExceptionEnum.CONVERT_TO_LONG_TITLE;
+import static br.com.letscode.moviesbattle.infrastructure.crawling.domain.config.constants.CrawlingConstants.*;
 
 @Slf4j
 @Service
@@ -33,33 +35,35 @@ public class ScraperServiceImpl implements ScraperService {
     private String URL;
 
     @Override
-    public List<Movie> crawlingMoviesImdb() throws IOException {
+    public List<Movie> crawlingMoviesImdb() {
+        try {
+            List<MovieScraperRequest> scrapings = new ArrayList<>();
 
-        List<MovieScraperRequest> scrapings = new ArrayList<>();
+            Document document = Jsoup.connect(URL).get();
+            Elements elementsListerItem = document.getElementsByClass(CLASS_LISTER_ITEM);
 
-        Document document = Jsoup.connect(URL).get();
-        Elements elementsListerItem = document.getElementsByClass(CLASS_LISTER_ITEM);
+            for(Element elementLI : elementsListerItem) {
+                MovieScraperRequest movie = MovieScraperRequest.builder().build();
 
-        for(Element elementLI : elementsListerItem) {
-            MovieScraperRequest movie = MovieScraperRequest.builder().build();
+                Elements elementsListerItemHeader =
+                        elementLI.getElementsByClass(CLASS_LISTER_ITEM_HEADER);
+                crawlingNameAndYear(movie, elementsListerItemHeader);
 
-            Elements elementsListerItemHeader =
-                    elementLI.getElementsByClass(CLASS_LISTER_ITEM_HEADER);
-            crawlingNameAndYear(movie, elementsListerItemHeader);
+                Elements elementsImdbRating =
+                        elementLI.getElementsByClass(CLASS_RATINGS_IMDB_RATING);
+                crawlingImdbRanting(movie, elementsImdbRating);
 
-            Elements elementsImdbRating =
-                    elementLI.getElementsByClass(CLASS_RATINGS_IMDB_RATING);
-            crawlingImdbRanting(movie, elementsImdbRating);
+                Elements elementsTextMuted = elementLI.getElementsByClass(CLASS_TEXT_MUTED);
+                crawlingTotalVotes(movie, elementsTextMuted);
 
-            Elements elementsTextMuted = elementLI.getElementsByClass(CLASS_TEXT_MUTED);
-            crawlingTotalVotes(movie, elementsTextMuted);
-
-            if (roleToAdd(movie)) {
-                scrapings.add(movie);
+                if (roleToAdd(movie)) {
+                    scrapings.add(movie);
+                }
             }
+            return ConvertToMovie.buildMovies(scrapings);
+        } catch (Exception exception) {
+            throw new GeneralException(CONVERT_TO_LONG_TITLE);
         }
-
-        return ConvertToMovie.buildMovies(scrapings);
     }
 
     private boolean roleToAdd(MovieScraperRequest movie) {

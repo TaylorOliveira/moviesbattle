@@ -2,26 +2,29 @@ package br.com.letscode.moviesbattle.infrastructure.service;
 
 import br.com.letscode.moviesbattle.api.model.payload.convert.ConvertToRoundValidateResponse;
 import br.com.letscode.moviesbattle.api.model.payload.response.RoundValidateResponse;
-import br.com.letscode.moviesbattle.domain.exceptionhandler.RoundPlayedException;
-import br.com.letscode.moviesbattle.api.model.enums.ChoiceMovieEnum;
+import br.com.letscode.moviesbattle.domain.config.exception.EntityNotFoundException;
+import br.com.letscode.moviesbattle.domain.config.exception.GeneralException;
 import br.com.letscode.moviesbattle.core.security.service.LoggedInUser;
-import br.com.letscode.moviesbattle.domain.model.Game;
-import br.com.letscode.moviesbattle.domain.model.Movie;
-import br.com.letscode.moviesbattle.domain.model.Round;
 import br.com.letscode.moviesbattle.domain.model.enums.RoundStatusEnum;
 import br.com.letscode.moviesbattle.domain.repository.MovieRepository;
 import br.com.letscode.moviesbattle.domain.repository.RoundRepository;
 import br.com.letscode.moviesbattle.domain.service.GameUpdateService;
 import br.com.letscode.moviesbattle.domain.service.RoundChoiceService;
-import br.com.letscode.moviesbattle.domain.service.RoundService;
 import br.com.letscode.moviesbattle.domain.service.UserRoundService;
-import lombok.extern.slf4j.Slf4j;
+import br.com.letscode.moviesbattle.api.model.enums.ChoiceMovieEnum;
+import br.com.letscode.moviesbattle.domain.service.RoundService;
 import org.springframework.beans.factory.annotation.Autowired;
+import br.com.letscode.moviesbattle.domain.model.Movie;
+import br.com.letscode.moviesbattle.domain.model.Round;
+import br.com.letscode.moviesbattle.domain.model.Game;
 import org.springframework.stereotype.Service;
-import javax.persistence.EntityNotFoundException;
-import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import java.util.Optional;
-import static br.com.letscode.moviesbattle.domain.constants.DomainConstants.*;
+import java.util.List;
+
+import static br.com.letscode.moviesbattle.domain.config.exception.enums.ExceptionEnum.ENTITY_NOT_FOUND;
+import static br.com.letscode.moviesbattle.domain.config.exception.enums.ExceptionEnum.ROUND_PLAYED;
+import static br.com.letscode.moviesbattle.domain.config.constants.BusinessRuleConstants.*;
 
 @Slf4j
 @Service
@@ -67,11 +70,10 @@ public class RoundServiceImpl implements RoundService {
     public RoundValidateResponse processRound(LoggedInUser loggedInUser, Long id,
                                               ChoiceMovieEnum userChoice) {
         Round roundEntity = roundRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(String
-                        .format("Entity %s of type %s not found", id, Game.class.getName())));
+                .orElseThrow(() -> new EntityNotFoundException(Round.class, id));
 
         if (isRoundPlayed(roundEntity)) {
-            throw new RoundPlayedException("The roundEntity has already been played");
+            throw new GeneralException(ROUND_PLAYED);
         }
 
         roundEntity = roundChoiceService
@@ -93,8 +95,8 @@ public class RoundServiceImpl implements RoundService {
     }
 
     private int getNumberRound(Game gameEntity) {
-        List<Round> roundsEntity = roundRepository
-                .findRoundsByGame(gameEntity);
+        List<Round> roundsEntity = roundRepository.findRoundsByGame(gameEntity);
+
         int numberRound = ADD_ANOTHER_ROUND;
         if (!roundsEntity.isEmpty()) {
             numberRound = addRound(roundsEntity);
@@ -110,5 +112,9 @@ public class RoundServiceImpl implements RoundService {
                                          Movie rightMovieEntity) {
         return roundRepository.validMoviesRound(gameEntity.getId(),
                 leftMovieEntity.getId(), rightMovieEntity.getId());
+    }
+
+    private String getDetail(Class clazz, Long id) {
+        return String.format(ENTITY_NOT_FOUND.getDescription(), "id", id, clazz.getName());
     }
 }

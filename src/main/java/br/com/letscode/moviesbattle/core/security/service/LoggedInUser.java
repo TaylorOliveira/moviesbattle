@@ -1,14 +1,14 @@
 package br.com.letscode.moviesbattle.core.security.service;
 
-import br.com.letscode.moviesbattle.domain.model.User;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.GrantedAuthority;
+import br.com.letscode.moviesbattle.domain.model.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.stream.Collectors;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
+import lombok.Getter;
 
 @Getter
 public class LoggedInUser implements UserDetails {

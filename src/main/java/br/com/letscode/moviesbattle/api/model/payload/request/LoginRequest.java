@@ -1,7 +1,7 @@
 package br.com.letscode.moviesbattle.api.model.payload.request;
 
-import lombok.Data;
 import javax.validation.constraints.NotBlank;
+import lombok.Data;
 
 @Data
 public class LoginRequest {

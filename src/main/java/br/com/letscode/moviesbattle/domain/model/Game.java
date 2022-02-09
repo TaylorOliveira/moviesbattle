@@ -2,11 +2,11 @@ package br.com.letscode.moviesbattle.domain.model;
 
 import br.com.letscode.moviesbattle.domain.model.enums.GameStatusEnum;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
+import lombok.Builder;
 import java.util.List;
+import lombok.Data;
 
 @Data
 @Entity

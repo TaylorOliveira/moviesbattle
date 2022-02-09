@@ -1,17 +1,17 @@
 package br.com.letscode.moviesbattle.api;
 
-import br.com.letscode.moviesbattle.api.model.enums.ChoiceMovieEnum;
-import br.com.letscode.moviesbattle.api.model.payload.response.RoundGameResponse;
 import br.com.letscode.moviesbattle.api.model.payload.response.RoundGameResponse.GameResponse;
 import br.com.letscode.moviesbattle.api.model.payload.response.RoundValidateResponse;
+import br.com.letscode.moviesbattle.api.model.payload.response.RoundGameResponse;
 import br.com.letscode.moviesbattle.core.security.service.LoggedInUser;
-import br.com.letscode.moviesbattle.domain.service.GameService;
-import br.com.letscode.moviesbattle.domain.service.RoundService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import br.com.letscode.moviesbattle.api.model.enums.ChoiceMovieEnum;
 import org.springframework.security.access.prepost.PreAuthorize;
+import br.com.letscode.moviesbattle.domain.service.RoundService;
+import br.com.letscode.moviesbattle.domain.service.GameService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
 import javax.validation.Valid;
 
 @RestController

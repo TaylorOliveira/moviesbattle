@@ -1,9 +1,9 @@
 package br.com.letscode.moviesbattle.infrastructure.service;
 
-import br.com.letscode.moviesbattle.domain.model.Movie;
 import br.com.letscode.moviesbattle.domain.repository.MovieRepository;
 import br.com.letscode.moviesbattle.domain.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
+import br.com.letscode.moviesbattle.domain.model.Movie;
 import org.springframework.stereotype.Service;
 import java.util.List;
 

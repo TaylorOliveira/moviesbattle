@@ -1,15 +1,15 @@
 package br.com.letscode.moviesbattle.domain.model;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.util.HashSet;
+import lombok.Builder;
 import java.util.Set;
+import lombok.Data;
 
 @Data
 @Entity

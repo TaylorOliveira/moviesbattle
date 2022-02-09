@@ -1,11 +1,11 @@
 package br.com.letscode.moviesbattle.domain.repository;
 
-import br.com.letscode.moviesbattle.domain.model.Game;
-import br.com.letscode.moviesbattle.domain.model.User;
 import br.com.letscode.moviesbattle.domain.model.enums.GameStatusEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import br.com.letscode.moviesbattle.domain.model.Game;
+import br.com.letscode.moviesbattle.domain.model.User;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import java.util.Optional;
 

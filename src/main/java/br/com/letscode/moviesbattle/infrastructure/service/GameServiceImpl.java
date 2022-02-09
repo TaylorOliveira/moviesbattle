@@ -1,25 +1,26 @@
 package br.com.letscode.moviesbattle.infrastructure.service;
 
 import br.com.letscode.moviesbattle.api.model.payload.response.RoundGameResponse.GameResponse;
-import br.com.letscode.moviesbattle.domain.exceptionhandler.UserNotFoundException;
-import br.com.letscode.moviesbattle.api.model.payload.convert.ConvertToGameResponse;
 import br.com.letscode.moviesbattle.api.model.payload.convert.ConvertToRoundGameResponse;
+import br.com.letscode.moviesbattle.api.model.payload.convert.ConvertToGameResponse;
+import br.com.letscode.moviesbattle.domain.config.exception.EntityNotFoundException;
 import br.com.letscode.moviesbattle.api.model.payload.response.RoundGameResponse;
 import br.com.letscode.moviesbattle.core.security.service.LoggedInUser;
-import br.com.letscode.moviesbattle.domain.model.Game;
-import br.com.letscode.moviesbattle.domain.model.Round;
-import br.com.letscode.moviesbattle.domain.model.User;
-import br.com.letscode.moviesbattle.domain.model.enums.GameStatusEnum;
 import br.com.letscode.moviesbattle.domain.model.enums.RoundStatusEnum;
+import br.com.letscode.moviesbattle.domain.model.convert.ConvertToGame;
+import br.com.letscode.moviesbattle.domain.model.enums.GameStatusEnum;
 import br.com.letscode.moviesbattle.domain.repository.GameRepository;
 import br.com.letscode.moviesbattle.domain.repository.UserRepository;
-import br.com.letscode.moviesbattle.domain.service.GameService;
 import br.com.letscode.moviesbattle.domain.service.RoundService;
-import br.com.letscode.moviesbattle.domain.model.convert.ConvertToGame;
-import lombok.extern.slf4j.Slf4j;
+import br.com.letscode.moviesbattle.domain.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
+import br.com.letscode.moviesbattle.domain.model.Round;
+import br.com.letscode.moviesbattle.domain.model.Game;
+import br.com.letscode.moviesbattle.domain.model.User;
 import org.springframework.stereotype.Service;
-import javax.persistence.EntityNotFoundException;
+import lombok.extern.slf4j.Slf4j;
+
+import static br.com.letscode.moviesbattle.domain.config.exception.enums.ExceptionEnum.ENTITY_NOT_FOUND;
 
 @Slf4j
 @Service
@@ -38,11 +39,9 @@ public class GameServiceImpl implements GameService {
         User userEntity = getUser(loggedInUser);
 
         Game gameEntityRunning = checkIsGameRunning(userEntity);
-
         if (gameEntityRunning != null) {
 
             Round roundEntityNotPayed = getRoundNotPayed(gameEntityRunning);
-
             if (roundEntityNotPayed != null) {
                 return ConvertToRoundGameResponse
                         .fromResponse(gameEntityRunning, roundEntityNotPayed);
@@ -60,8 +59,7 @@ public class GameServiceImpl implements GameService {
 
     private User getUser(LoggedInUser loggedInUser) {
         return userRepository.findById(loggedInUser.getId())
-                .orElseThrow(() -> new UserNotFoundException(String
-                        .format("User %s not found", loggedInUser.getUsername())));
+                .orElseThrow(() -> new EntityNotFoundException(Game.class, loggedInUser.getId()));
     }
 
     private Round getRoundNotPayed(Game gameRunning) {
@@ -73,8 +71,7 @@ public class GameServiceImpl implements GameService {
     }
 
     private Game checkIsGameRunning(User userEntity) {
-        return gameRepository
-                .findByUserAndStatusRunning(userEntity, GameStatusEnum.RUNNING)
+        return gameRepository.findByUserAndStatusRunning(userEntity, GameStatusEnum.RUNNING)
                 .orElse(null);
     }
 
@@ -83,8 +80,7 @@ public class GameServiceImpl implements GameService {
         User userEntity = getUser(loggedInUser);
 
         Game gameEntity = gameRepository.findByIdAndUser(id, userEntity)
-                .orElseThrow(() -> new EntityNotFoundException(String
-                        .format("Entity %s of type %s not found", id, Game.class.getName())));
+                .orElseThrow(() -> new EntityNotFoundException(Game.class, id));
         gameEntity.setStatus(GameStatusEnum.FINALIZED);
 
         return ConvertToGameResponse.fromResponse(gameRepository.save(gameEntity));
@@ -92,5 +88,9 @@ public class GameServiceImpl implements GameService {
 
     private Game createGame(User userEntity) {
         return gameRepository.save(ConvertToGame.fromEntity(userEntity));
+    }
+
+    private String getDetail(Class clazz, Long id) {
+        return String.format(ENTITY_NOT_FOUND.getDescription(), "id", id, clazz.getName());
     }
 }

@@ -1,33 +1,33 @@
 package br.com.letscode.moviesbattle.api;
 
-import br.com.letscode.moviesbattle.api.model.payload.request.LoginRequest;
-import br.com.letscode.moviesbattle.api.model.payload.request.SignupRequest;
-import br.com.letscode.moviesbattle.api.model.payload.response.LoginResponse;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import br.com.letscode.moviesbattle.api.model.payload.response.MessageResponse;
-import br.com.letscode.moviesbattle.core.security.jwt.JwtUtils;
+import br.com.letscode.moviesbattle.api.model.payload.response.LoginResponse;
+import br.com.letscode.moviesbattle.api.model.payload.request.SignupRequest;
+import br.com.letscode.moviesbattle.api.model.payload.request.LoginRequest;
+import org.springframework.security.authentication.AuthenticationManager;
 import br.com.letscode.moviesbattle.core.security.service.LoggedInUser;
-import br.com.letscode.moviesbattle.domain.model.Role;
-import br.com.letscode.moviesbattle.domain.model.User;
-import br.com.letscode.moviesbattle.domain.model.enums.ERole;
+import org.springframework.security.core.context.SecurityContextHolder;
 import br.com.letscode.moviesbattle.domain.repository.RoleRepository;
 import br.com.letscode.moviesbattle.domain.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import br.com.letscode.moviesbattle.core.security.jwt.JwtUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import br.com.letscode.moviesbattle.domain.model.enums.ERole;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.Authentication;
+import br.com.letscode.moviesbattle.domain.model.Role;
+import br.com.letscode.moviesbattle.domain.model.User;
+import org.springframework.http.ResponseEntity;
+import java.util.stream.Collectors;
 import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/auth")
@@ -59,8 +59,7 @@ public class AuthController {
 
         LoggedInUser loggedInUser = (LoggedInUser) authentication.getPrincipal();
 
-        LoginResponse loginResponse = getJwtResponse(jwt, loggedInUser, getRoles(loggedInUser));
-        return ResponseEntity.ok(loginResponse);
+        return ResponseEntity.ok(convertToLoginResponse(jwt, loggedInUser, getRoles(loggedInUser)));
     }
 
     private List<String> getRoles(LoggedInUser loggedInUser) {
@@ -69,7 +68,7 @@ public class AuthController {
                 .collect(Collectors.toList());
     }
 
-    private LoginResponse getJwtResponse(String jwt, LoggedInUser userDetails, List<String> roles) {
+    private LoginResponse convertToLoginResponse(String jwt, LoggedInUser userDetails, List<String> roles) {
         return LoginResponse.builder()
                 .token(jwt)
                 .id(userDetails.getId())
