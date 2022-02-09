@@ -7,9 +7,6 @@ import br.com.letscode.moviesbattle.domain.model.User;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
 
-import static br.com.letscode.moviesbattle.domain.config.constants.BusinessRuleConstants.ADD_ANOTHER_CORRECT_ROUND;
-import static br.com.letscode.moviesbattle.domain.config.constants.BusinessRuleConstants.ADD_ONE_MORE_ROUND_PLAYED;
-
 @Slf4j
 @Service
 public class UserRoundServiceImpl implements UserRoundService {
@@ -22,30 +19,36 @@ public class UserRoundServiceImpl implements UserRoundService {
 
     @Override
     public User updateUserInformationWithRoundResult(Round roundEntity) {
-        User user = roundEntity.getGame().getUser();
+        User userEntity = roundEntity.getGame().getUser();
 
-        int totalCorrectRounds = user.getTotalCorrectRounds();
-        int totalRoundsPlayed = user.getTotalRoundsPlayed();
+        int totalCorrectRounds = userEntity.getTotalCorrectRounds();
+        int totalRoundsPlayed = userEntity.getTotalRoundsPlayed();
         if (roundEntity.isCorrect()) {
-            user.setTotalCorrectRounds(getTotalCorrectRounds(totalCorrectRounds));
+            userEntity.setTotalCorrectRounds(getTotalCorrectRounds(totalCorrectRounds));
         }
-        user.setTotalRoundsPlayed(getTotalRoundsPlayed(totalRoundsPlayed));
 
-        user.setScore(getScoreUser(user));
-        return userRepository.save(user);
+        userEntity.setTotalRoundsPlayed(getTotalRoundsPlayed(totalRoundsPlayed));
+        userEntity.setScore(getScoreUser(userEntity));
+
+        return userRepository.save(userEntity);
+    }
+
+    @Override
+    public void save(User userEntity) {
+        userRepository.save(userEntity);
     }
 
     private int getTotalCorrectRounds(int totalCorrectRounds) {
-        return totalCorrectRounds + ADD_ANOTHER_CORRECT_ROUND;
+        return totalCorrectRounds++;
     }
 
     private int getTotalRoundsPlayed(int totalRoundsPlayed) {
-        return totalRoundsPlayed + ADD_ONE_MORE_ROUND_PLAYED;
+        return totalRoundsPlayed++;
     }
 
-    private double getScoreUser(User user) {
-        int totalCorrectRounds = user.getTotalCorrectRounds();
-        double totalRoundsPlayed = user.getTotalRoundsPlayed();
+    private double getScoreUser(User userEntity) {
+        int totalCorrectRounds = userEntity.getTotalCorrectRounds();
+        double totalRoundsPlayed = userEntity.getTotalRoundsPlayed();
         double correctPercentage = getUserAccuracyPercentage(totalCorrectRounds, totalRoundsPlayed);
         return correctPercentage * totalRoundsPlayed;
     }

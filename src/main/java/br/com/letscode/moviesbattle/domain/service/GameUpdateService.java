@@ -6,4 +6,6 @@ import br.com.letscode.moviesbattle.domain.model.Game;
 public interface GameUpdateService {
 
     Game updateGameTotalErrors(Round roundEntity);
+
+    void save(Game gameEntity);
 }

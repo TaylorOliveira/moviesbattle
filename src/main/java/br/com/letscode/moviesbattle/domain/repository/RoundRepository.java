@@ -1,5 +1,6 @@
 package br.com.letscode.moviesbattle.domain.repository;
 
+import br.com.letscode.moviesbattle.domain.model.enums.RoundStatusEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
 import br.com.letscode.moviesbattle.domain.model.Round;
 import org.springframework.data.repository.query.Param;
@@ -21,5 +22,7 @@ public interface RoundRepository extends JpaRepository<Round, Long> {
 
     List<Round> findRoundsByGame(Game gameEntity);
 
-    Optional<Round> findRoundByGameAndStatusNotPlayed(Game gameEntity);
+    @Query("SELECT r FROM Round r WHERE r.status = :status AND r.game = :game")
+    Optional<Round> findRoundByGameAndStatusNotPlayed(@Param("status") RoundStatusEnum status,
+                                                      @Param("game") Game gameEntity);
 }

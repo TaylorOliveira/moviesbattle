@@ -1,6 +1,6 @@
 package br.com.letscode.moviesbattle.infrastructure.service;
 
-import br.com.letscode.moviesbattle.domain.config.exception.GeneralException;
+import br.com.letscode.moviesbattle.domain.config.exception.ErrorException;
 import br.com.letscode.moviesbattle.domain.repository.GameRepository;
 import br.com.letscode.moviesbattle.domain.service.GameUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,6 @@ import br.com.letscode.moviesbattle.domain.model.Game;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
 
-import static br.com.letscode.moviesbattle.domain.config.constants.BusinessRuleConstants.ADD_ANOTHER_ERROR;
 import static br.com.letscode.moviesbattle.domain.config.exception.enums.ExceptionEnum.GAME_TOTAL_ERRORS;
 
 @Slf4j
@@ -26,15 +25,23 @@ public class GameUpdateServiceImpl implements GameUpdateService {
     @Override
     public Game updateGameTotalErrors(Round roundEntity) {
         Game gameEntity = roundEntity.getGame();
+        int totalRounds = gameEntity.getTotalRounds();
+        gameEntity.setTotalRounds(totalRounds++);
 
         if (ruleTotalErrors(roundEntity, gameEntity)) {
-            throw new GeneralException(GAME_TOTAL_ERRORS);
+            throw new ErrorException(GAME_TOTAL_ERRORS);
 
         } else if (isNotCorrect(roundEntity)) {
             int numberErrors = gameEntity.getTotalErrors();
-            gameEntity.setTotalErrors(numberErrors + ADD_ANOTHER_ERROR);
+            gameEntity.setTotalErrors(numberErrors++);
         }
-        return gameRepository.save(gameEntity);
+
+        return gameEntity;
+    }
+
+    @Override
+    public void save(Game gameEntity) {
+        gameRepository.save(gameEntity);
     }
 
     private boolean ruleTotalErrors(Round roundEntity, Game gameEntity) {

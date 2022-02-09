@@ -1,14 +1,12 @@
 package br.com.letscode.moviesbattle.infrastructure.service;
 
 import br.com.letscode.moviesbattle.domain.repository.UserRepository;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import br.com.letscode.moviesbattle.factory.RoundFactory;
 import br.com.letscode.moviesbattle.factory.UserFactory;
-import org.junit.jupiter.api.BeforeAll;
-import org.springframework.boot.test.context.SpringBootTest;
 import br.com.letscode.moviesbattle.domain.model.*;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import static org.junit.jupiter.api.Assertions.*;
 

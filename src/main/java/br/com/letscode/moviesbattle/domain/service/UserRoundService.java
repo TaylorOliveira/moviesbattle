@@ -5,5 +5,7 @@ import br.com.letscode.moviesbattle.domain.model.User;
 
 public interface UserRoundService {
 
-    User updateUserInformationWithRoundResult(Round round);
+    User updateUserInformationWithRoundResult(Round roundEntity);
+
+    void save(User userEntity);
 }

@@ -5,7 +5,7 @@ import br.com.letscode.moviesbattle.api.model.payload.convert.ConvertToRoundGame
 import br.com.letscode.moviesbattle.api.model.payload.convert.ConvertToGameResponse;
 import br.com.letscode.moviesbattle.domain.config.exception.EntityNotFoundException;
 import br.com.letscode.moviesbattle.api.model.payload.response.RoundGameResponse;
-import br.com.letscode.moviesbattle.domain.config.exception.GeneralException;
+import br.com.letscode.moviesbattle.domain.config.exception.ErrorException;
 import br.com.letscode.moviesbattle.core.security.service.LoggedInUser;
 import br.com.letscode.moviesbattle.domain.model.convert.ConvertToGame;
 import br.com.letscode.moviesbattle.domain.model.enums.GameStatusEnum;
@@ -51,13 +51,13 @@ public class GameServiceImpl implements GameService {
 
     private void validateTheNumberOfRounds(Game gameEntity) {
         if(gameEntity.getTotalRounds() >= 10) {
-            finishGameWithAllRoundsPlayed(gameEntity);
+            finishGameWith10RoundsPlayed(gameEntity);
 
-            throw new GeneralException(TOTAL_ROUNDS);
+            throw new ErrorException(TOTAL_ROUNDS);
         }
     }
 
-    private void finishGameWithAllRoundsPlayed(Game gameEntity) {
+    private void finishGameWith10RoundsPlayed(Game gameEntity) {
         gameEntity.setStatus(GameStatusEnum.FINALIZED);
         gameRepository.save(gameEntity);
     }

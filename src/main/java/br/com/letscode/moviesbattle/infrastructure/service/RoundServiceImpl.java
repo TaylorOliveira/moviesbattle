@@ -3,20 +3,18 @@ package br.com.letscode.moviesbattle.infrastructure.service;
 import br.com.letscode.moviesbattle.api.model.payload.convert.ConvertToRoundValidateResponse;
 import br.com.letscode.moviesbattle.api.model.payload.response.RoundValidateResponse;
 import br.com.letscode.moviesbattle.domain.config.exception.EntityNotFoundException;
-import br.com.letscode.moviesbattle.domain.config.exception.GeneralException;
+import br.com.letscode.moviesbattle.domain.config.exception.ErrorException;
 import br.com.letscode.moviesbattle.core.security.service.LoggedInUser;
 import br.com.letscode.moviesbattle.domain.model.enums.RoundStatusEnum;
 import br.com.letscode.moviesbattle.domain.repository.MovieRepository;
 import br.com.letscode.moviesbattle.domain.repository.RoundRepository;
-import br.com.letscode.moviesbattle.domain.service.GameUpdateService;
-import br.com.letscode.moviesbattle.domain.service.RoundChoiceService;
-import br.com.letscode.moviesbattle.domain.service.UserRoundService;
 import br.com.letscode.moviesbattle.api.model.enums.ChoiceMovieEnum;
-import br.com.letscode.moviesbattle.domain.service.RoundService;
 import org.springframework.beans.factory.annotation.Autowired;
 import br.com.letscode.moviesbattle.domain.model.Movie;
 import br.com.letscode.moviesbattle.domain.model.Round;
+import br.com.letscode.moviesbattle.domain.model.User;
 import br.com.letscode.moviesbattle.domain.model.Game;
+import br.com.letscode.moviesbattle.domain.service.*;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
 import java.util.Optional;
@@ -24,7 +22,6 @@ import java.util.List;
 
 import static br.com.letscode.moviesbattle.domain.config.exception.enums.ExceptionEnum.ENTITY_NOT_FOUND;
 import static br.com.letscode.moviesbattle.domain.config.exception.enums.ExceptionEnum.ROUND_PLAYED;
-import static br.com.letscode.moviesbattle.domain.config.constants.BusinessRuleConstants.*;
 
 @Slf4j
 @Service
@@ -75,26 +72,30 @@ public class RoundServiceImpl implements RoundService {
                 .orElseThrow(() -> new EntityNotFoundException(Round.class, id));
 
         if (isRoundPlayed(roundEntity)) {
-            throw new GeneralException(ROUND_PLAYED);
+            throw new ErrorException(ROUND_PLAYED);
         }
 
         roundEntity = roundChoiceService
                 .validateSelectedMovieInRound(userChoice, roundEntity);
 
-        roundEntity.setGame(gameUpdateService
-                .updateGameTotalErrors(roundEntity));
+        Game gameEntity = gameUpdateService
+                .updateGameTotalErrors(roundEntity);
 
-        roundEntity.getGame().setUser(userRoundService
-                .updateUserInformationWithRoundResult(roundEntity));
+        User userEntity =  userRoundService
+                .updateUserInformationWithRoundResult(roundEntity);
 
         roundRepository.save(roundEntity);
+
+        gameUpdateService.save(gameEntity);
+
+        userRoundService.save(userEntity);
 
         return ConvertToRoundValidateResponse.fromResponse(roundEntity);
     }
 
     @Override
     public Round getRoundNotPayed(Game gameEntity) {
-        return roundRepository.findRoundByGameAndStatusNotPlayed(gameEntity)
+        return roundRepository.findRoundByGameAndStatusNotPlayed(RoundStatusEnum.NOT_PLAYED, gameEntity)
                 .orElse(null);
     }
 
@@ -105,7 +106,7 @@ public class RoundServiceImpl implements RoundService {
     private int getNumberRound(Game gameEntity) {
         List<Round> roundsEntity = roundRepository.findRoundsByGame(gameEntity);
 
-        int numberRound = ADD_ANOTHER_ROUND;
+        int numberRound = 1;
         if (!roundsEntity.isEmpty()) {
             numberRound = addRound(roundsEntity);
         }
@@ -113,7 +114,8 @@ public class RoundServiceImpl implements RoundService {
     }
 
     private int addRound(List<Round> roundsEntity) {
-        return roundsEntity.size() + ADD_ANOTHER_ROUND;
+        int numberRound = roundsEntity.size();
+        return numberRound++;
     }
 
     private Optional<Round> isRoundValid(Game gameEntity, Movie leftMovieEntity,
