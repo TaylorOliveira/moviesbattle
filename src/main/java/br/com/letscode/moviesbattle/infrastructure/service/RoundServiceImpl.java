@@ -12,7 +12,6 @@ import br.com.letscode.moviesbattle.api.model.enums.ChoiceMovieEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import br.com.letscode.moviesbattle.domain.model.Movie;
 import br.com.letscode.moviesbattle.domain.model.Round;
-import br.com.letscode.moviesbattle.domain.model.User;
 import br.com.letscode.moviesbattle.domain.model.Game;
 import br.com.letscode.moviesbattle.domain.service.*;
 import org.springframework.stereotype.Service;
@@ -79,13 +78,9 @@ public class RoundServiceImpl implements RoundService {
                 .validateSelectedMovieInRound(userChoice, roundEntity);
         roundRepository.save(roundEntity);
 
-        Game gameEntity = gameUpdateService
-                .updateGameTotalErrors(roundEntity);
-        gameUpdateService.save(gameEntity);
+        gameUpdateService.updateGameWithRoundResult(roundEntity);
 
-        User userEntity =  userRoundService
-                .updateUserInformationWithRoundResult(roundEntity);
-        userRoundService.save(userEntity);
+        userRoundService.updateUserWithRoundResult(roundEntity);
 
         return ConvertToRoundValidateResponse.fromResponse(roundEntity);
     }

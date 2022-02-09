@@ -18,7 +18,7 @@ public class UserRoundServiceImpl implements UserRoundService {
     }
 
     @Override
-    public User updateUserInformationWithRoundResult(Round roundEntity) {
+    public User updateUserWithRoundResult(Round roundEntity) {
         User userEntity = roundEntity.getGame().getUser();
 
         int totalCorrectRounds = userEntity.getTotalCorrectRounds();
@@ -26,16 +26,10 @@ public class UserRoundServiceImpl implements UserRoundService {
         if (roundEntity.isCorrect()) {
             userEntity.setTotalCorrectRounds(getTotalCorrectRounds(totalCorrectRounds));
         }
-
         userEntity.setTotalRoundsPlayed(getTotalRoundsPlayed(totalRoundsPlayed));
         userEntity.setScore(getScoreUser(userEntity));
-
-        return userRepository.save(userEntity);
-    }
-
-    @Override
-    public void save(User userEntity) {
         userRepository.save(userEntity);
+        return userEntity;
     }
 
     private int getTotalCorrectRounds(int totalCorrectRounds) {

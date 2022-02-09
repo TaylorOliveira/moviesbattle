@@ -23,7 +23,7 @@ public class GameUpdateServiceImpl implements GameUpdateService {
     private GameRepository gameRepository;
 
     @Override
-    public Game updateGameTotalErrors(Round roundEntity) {
+    public Game updateGameWithRoundResult(Round roundEntity) {
         Game gameEntity = roundEntity.getGame();
         int totalRounds = gameEntity.getTotalRounds();
         gameEntity.setTotalRounds(totalRounds + 1);
@@ -35,13 +35,8 @@ public class GameUpdateServiceImpl implements GameUpdateService {
             int numberErrors = gameEntity.getTotalErrors();
             gameEntity.setTotalErrors(numberErrors + 1);
         }
-
-        return gameEntity;
-    }
-
-    @Override
-    public void save(Game gameEntity) {
         gameRepository.save(gameEntity);
+        return gameEntity;
     }
 
     private boolean ruleTotalErrors(Round roundEntity, Game gameEntity) {
