@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import lombok.Builder;
-import java.util.List;
 import lombok.Data;
 
 @Data
@@ -28,10 +27,10 @@ public class Game {
     @Column(columnDefinition = "int default 0")
     private int totalErrors;
 
+    @Column(columnDefinition = "int default 0")
+    private int totalRounds;
+
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
     private GameStatusEnum status;
-
-    @OneToMany(mappedBy = "game", fetch = FetchType.EAGER)
-    private List<Round> rounds;
 }

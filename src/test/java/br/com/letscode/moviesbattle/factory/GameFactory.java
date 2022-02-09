@@ -11,7 +11,6 @@ public abstract class GameFactory {
                 .user(UserFactory.fromType())
                 .totalErrors(0)
                 .status(GameStatusEnum.RUNNING)
-                .rounds(RoundFactory.fromList())
                 .build();
     }
 }

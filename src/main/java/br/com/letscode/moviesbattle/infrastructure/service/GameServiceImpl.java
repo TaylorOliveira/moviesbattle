@@ -5,8 +5,8 @@ import br.com.letscode.moviesbattle.api.model.payload.convert.ConvertToRoundGame
 import br.com.letscode.moviesbattle.api.model.payload.convert.ConvertToGameResponse;
 import br.com.letscode.moviesbattle.domain.config.exception.EntityNotFoundException;
 import br.com.letscode.moviesbattle.api.model.payload.response.RoundGameResponse;
+import br.com.letscode.moviesbattle.domain.config.exception.GeneralException;
 import br.com.letscode.moviesbattle.core.security.service.LoggedInUser;
-import br.com.letscode.moviesbattle.domain.model.enums.RoundStatusEnum;
 import br.com.letscode.moviesbattle.domain.model.convert.ConvertToGame;
 import br.com.letscode.moviesbattle.domain.model.enums.GameStatusEnum;
 import br.com.letscode.moviesbattle.domain.repository.GameRepository;
@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
 
 import static br.com.letscode.moviesbattle.domain.config.exception.enums.ExceptionEnum.ENTITY_NOT_FOUND;
+import static br.com.letscode.moviesbattle.domain.config.exception.enums.ExceptionEnum.TOTAL_ROUNDS;
 
 @Slf4j
 @Service
@@ -40,16 +41,7 @@ public class GameServiceImpl implements GameService {
 
         Game gameEntityRunning = checkIsGameRunning(userEntity);
         if (gameEntityRunning != null) {
-
-            Round roundEntityNotPayed = getRoundNotPayed(gameEntityRunning);
-            if (roundEntityNotPayed != null) {
-                return ConvertToRoundGameResponse
-                        .fromResponse(gameEntityRunning, roundEntityNotPayed);
-            } else {
-                Round newEntityRound = roundService.initializeRound(gameEntityRunning);
-                return ConvertToRoundGameResponse
-                        .fromResponse(gameEntityRunning, newEntityRound);
-            }
+            return getRoundGameResponse(gameEntityRunning);
         }
         Game gameEntity = createGame(userEntity);
         Round roundEntity = roundService.initializeRound(gameEntity);
@@ -57,17 +49,40 @@ public class GameServiceImpl implements GameService {
         return ConvertToRoundGameResponse.fromResponse(gameEntity, roundEntity);
     }
 
+    private void validateTheNumberOfRounds(Game gameEntity) {
+        if(gameEntity.getTotalRounds() >= 10) {
+            finishGameWithAllRoundsPlayed(gameEntity);
+
+            throw new GeneralException(TOTAL_ROUNDS);
+        }
+    }
+
+    private void finishGameWithAllRoundsPlayed(Game gameEntity) {
+        gameEntity.setStatus(GameStatusEnum.FINALIZED);
+        gameRepository.save(gameEntity);
+    }
+
+    private RoundGameResponse getRoundGameResponse(Game gameEntityRunning) {
+        Round roundEntityNotPayed = getRoundNotPayed(gameEntityRunning);
+
+        if (roundEntityNotPayed != null) {
+            return ConvertToRoundGameResponse
+                    .fromResponse(gameEntityRunning, roundEntityNotPayed);
+        } else {
+            validateTheNumberOfRounds(gameEntityRunning);
+            Round newEntityRound = roundService.initializeRound(gameEntityRunning);
+            return ConvertToRoundGameResponse
+                    .fromResponse(gameEntityRunning, newEntityRound);
+        }
+    }
+
     private User getUser(LoggedInUser loggedInUser) {
         return userRepository.findById(loggedInUser.getId())
                 .orElseThrow(() -> new EntityNotFoundException(Game.class, loggedInUser.getId()));
     }
 
-    private Round getRoundNotPayed(Game gameRunning) {
-        return gameRunning.getRounds()
-                .stream()
-                .filter(round -> round.getStatus() == RoundStatusEnum.NOT_PLAYED)
-                .findFirst()
-                .orElse(null);
+    private Round getRoundNotPayed(Game gameEntity) {
+        return roundService.getRoundNotPayed(gameEntity);
     }
 
     private Game checkIsGameRunning(User userEntity) {

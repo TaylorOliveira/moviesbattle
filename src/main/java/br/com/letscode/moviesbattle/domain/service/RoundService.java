@@ -8,7 +8,9 @@ import br.com.letscode.moviesbattle.domain.model.Game;
 
 public interface RoundService {
 
-    Round initializeRound(Game game);
+    Round initializeRound(Game gameEntity);
 
     RoundValidateResponse processRound(LoggedInUser loggedInUser, Long roundId, ChoiceMovieEnum choice);
+
+    Round getRoundNotPayed(Game gameEntity);
 }

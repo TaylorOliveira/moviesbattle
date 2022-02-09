@@ -6,9 +6,8 @@ import org.springframework.data.repository.query.Param;
 import br.com.letscode.moviesbattle.domain.model.Game;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 import java.util.Optional;
+import java.util.List;
 
 @Repository
 public interface RoundRepository extends JpaRepository<Round, Long> {
@@ -20,5 +19,7 @@ public interface RoundRepository extends JpaRepository<Round, Long> {
                                      @Param("leftMovieId") Long leftMovieId,
                                      @Param("rightMovieId") Long rightMovieId);
 
-    List<Round> findRoundsByGame(Game game);
+    List<Round> findRoundsByGame(Game gameEntity);
+
+    Optional<Round> findRoundByGameAndStatusNotPlayed(Game gameEntity);
 }
