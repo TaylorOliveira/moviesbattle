@@ -1,4 +1,4 @@
-package br.com.letscode.moviesbattle.api;
+package br.com.letscode.moviesbattle.api.controller;
 
 import br.com.letscode.moviesbattle.api.model.payload.response.RoundGameResponse.GameResponse;
 import br.com.letscode.moviesbattle.api.model.payload.response.RoundValidateResponse;

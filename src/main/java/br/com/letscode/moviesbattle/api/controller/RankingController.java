@@ -1,4 +1,4 @@
-package br.com.letscode.moviesbattle.api;
+package br.com.letscode.moviesbattle.api.controller;
 
 import br.com.letscode.moviesbattle.domain.service.RankingService;
 import org.springframework.beans.factory.annotation.Autowired;

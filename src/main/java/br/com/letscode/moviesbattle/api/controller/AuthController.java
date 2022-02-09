@@ -1,4 +1,4 @@
-package br.com.letscode.moviesbattle.api;
+package br.com.letscode.moviesbattle.api.controller;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import br.com.letscode.moviesbattle.api.model.payload.response.MessageResponse;
