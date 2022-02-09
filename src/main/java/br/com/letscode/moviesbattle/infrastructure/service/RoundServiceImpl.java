@@ -85,7 +85,7 @@ public class RoundServiceImpl implements RoundService {
 
         roundRepository.save(roundEntity);
 
-        return ConvertToRoundValidateResponse.fromEntity(roundEntity);
+        return ConvertToRoundValidateResponse.fromResponse(roundEntity);
     }
 
     private boolean isRoundPlayed(Round round) {

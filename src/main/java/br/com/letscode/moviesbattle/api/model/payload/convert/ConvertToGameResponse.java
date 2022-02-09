@@ -5,7 +5,7 @@ import br.com.letscode.moviesbattle.domain.model.Game;
 
 public abstract class ConvertToGameResponse {
 
-    public static GameResponse fromEntity(Game game) {
+    public static GameResponse fromResponse(Game game) {
         return GameResponse.builder()
                 .id(game.getId())
                 .status(game.getStatus())

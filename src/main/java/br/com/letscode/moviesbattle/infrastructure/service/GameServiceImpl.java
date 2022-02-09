@@ -45,17 +45,17 @@ public class GameServiceImpl implements GameService {
 
             if (roundEntityNotPayed != null) {
                 return ConvertToRoundGameResponse
-                        .fromEntity(gameEntityRunning, roundEntityNotPayed);
+                        .fromResponse(gameEntityRunning, roundEntityNotPayed);
             } else {
                 Round newEntityRound = roundService.initializeRound(gameEntityRunning);
                 return ConvertToRoundGameResponse
-                        .fromEntity(gameEntityRunning, newEntityRound);
+                        .fromResponse(gameEntityRunning, newEntityRound);
             }
         }
         Game gameEntity = createGame(userEntity);
         Round roundEntity = roundService.initializeRound(gameEntity);
 
-        return ConvertToRoundGameResponse.fromEntity(gameEntity, roundEntity);
+        return ConvertToRoundGameResponse.fromResponse(gameEntity, roundEntity);
     }
 
     private User getUser(LoggedInUser loggedInUser) {
@@ -87,7 +87,7 @@ public class GameServiceImpl implements GameService {
                         .format("Entity %s of type %s not found", id, Game.class.getName())));
         gameEntity.setStatus(GameStatusEnum.FINALIZED);
 
-        return ConvertToGameResponse.fromEntity(gameRepository.save(gameEntity));
+        return ConvertToGameResponse.fromResponse(gameRepository.save(gameEntity));
     }
 
     private Game createGame(User userEntity) {

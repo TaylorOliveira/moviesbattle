@@ -5,7 +5,7 @@ import br.com.letscode.moviesbattle.domain.model.Movie;
 
 public abstract class ConvertToMovieResponse {
 
-    public static MovieResponse fromEntity(Movie movie) {
+    public static MovieResponse fromResponse(Movie movie) {
         return MovieResponse.builder()
                 .id(movie.getId())
                 .name(movie.getName())

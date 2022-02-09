@@ -5,16 +5,16 @@ import br.com.letscode.moviesbattle.domain.model.Round;
 
 public abstract class ConvertToRoundValidateResponse {
 
-    public static RoundValidateResponse fromEntity(Round round) {
+    public static RoundValidateResponse fromResponse(Round round) {
         return RoundValidateResponse.builder()
                 .roundId(round.getId())
                 .isCorrectRound(round.isCorrect())
                 .status(round.getStatus())
                 .numberRound(round.getNumberRound())
                 .leftMovie(ConvertToMovieRoundResponse
-                        .fromEntity(round.getLeftMovie(), isBiggerPointLeft(round)))
+                        .fromResponse(round.getLeftMovie(), isBiggerPointLeft(round)))
                 .rightMovie(ConvertToMovieRoundResponse
-                        .fromEntity(round.getRightMovie(), isBiggerPointRight(round)))
+                        .fromResponse(round.getRightMovie(), isBiggerPointRight(round)))
                 .build();
     }
 

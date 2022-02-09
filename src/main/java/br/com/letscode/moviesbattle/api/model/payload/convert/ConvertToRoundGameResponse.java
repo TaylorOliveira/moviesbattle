@@ -6,12 +6,12 @@ import br.com.letscode.moviesbattle.domain.model.Round;
 
 public abstract class ConvertToRoundGameResponse {
 
-    public static RoundGameResponse fromEntity(Game game, Round round) {
+    public static RoundGameResponse fromResponse(Game game, Round round) {
         return RoundGameResponse.builder()
                 .roundId(round.getId())
-                .game(ConvertToGameResponse.fromEntity(game))
-                .leftMovie(ConvertToMovieResponse.fromEntity(round.getLeftMovie()))
-                .rightMovie(ConvertToMovieResponse.fromEntity(round.getRightMovie()))
+                .game(ConvertToGameResponse.fromResponse(game))
+                .leftMovie(ConvertToMovieResponse.fromResponse(round.getLeftMovie()))
+                .rightMovie(ConvertToMovieResponse.fromResponse(round.getRightMovie()))
                 .round(round.getNumberRound())
                 .build();
     }
