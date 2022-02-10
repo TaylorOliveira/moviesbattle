@@ -24,14 +24,4 @@ public class ApiControllerHandler extends ResponseEntityExceptionHandler {
                 .build();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseData);
     }
-
-    @ExceptionHandler(Exception.class)
-    ResponseEntity<?> handleException(HttpServletRequest request, Exception ex) {
-        ResponseData responseData = ResponseData.builder()
-                .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                .title(HttpStatus.INTERNAL_SERVER_ERROR.name())
-                .detail(HttpStatus.INTERNAL_SERVER_ERROR.name())
-                .build();
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseData);
-    }
 }
