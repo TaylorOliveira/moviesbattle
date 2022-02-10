@@ -19,9 +19,9 @@ Tecnologias utilizadas
 
 * [java] - Versão 11
 * [spring-boot] - Versão 2.6.3
-* [spring-security] - config-server https://github.com/TaylorOliveira/config-server
+* [spring-security] - Versão 5.6.1
 * [spring-data-jpa] - Versão 2.6.3
-* [spring-cloud] - Versão 3.1.0
+* [spring-cloud] - Versão 3.1.0 - config-server https://github.com/TaylorOliveira/config-server
 * [jUnit] - Version 5
 * [devtools] - Version 2.2
 * [lombok] - Version 2.2
