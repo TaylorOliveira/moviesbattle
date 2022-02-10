@@ -23,6 +23,9 @@ Tecnologias utilizadas
 
 ### Documentação
 
+Para autenticação e autorização foram utilizados Spring Security e JWT. 
+O Token é gerado no login e precisa ser passado em todos os outros recursos.
+
 Dois usuários já estão configurados na aplicação:
 - username: user_test01 password: 123456789
 - username: user_test02 password: 123456789
