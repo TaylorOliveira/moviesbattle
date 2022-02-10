@@ -1,0 +1,27 @@
+#server:
+#  servlet:
+#    context-path: "/v1"
+
+spring:
+  datasource:
+    driverClassName: org.h2.Driver
+    url: "jdbc:h2:mem:moviesbattle"
+    username: "sa"
+    password:
+  jpa:
+    open-in-view: false
+    database-platform: "org.hibernate.dialect.H2Dialect"
+    hibernate:
+      ddl-auto: create-drop
+    defer-datasource-initialization: true
+  h2:
+    console:
+      enabled: true
+      path: "/h2-console"
+
+moviesbattle:
+  app:
+    jwtSecret: "16bb1f08-877d-11ec-a8a3-0242ac120002"
+    jwtExpirationMs: 86400000
+    urlScraping: "https://www.imdb.com/search/keyword/?keywords=ice&ref_=fn_kw_kw_1"
+    totalErrors: 3
