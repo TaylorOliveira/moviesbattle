@@ -4,13 +4,21 @@
 Aplicação ao estilo card game, onde serão informados dois 
 filmes e o jogador deve acertar aquele que possui melhor avaliação no IMDB. 
 
+## Próxima features
+* Melhoria dos testes de integração/unitários/cobertura
+* Paginação da listagem do recurso /ranking
+* Mecanismo de logout/black-list JWT
+* Criptografia das propriedades sensíveis do config-serve com chave JKS
+* Adição do padrão Data, Meta e Links no response (Padrão Restfull)
+* Melhoria dos handlers para response dos cenários de exceções
+
 ### Tecnologia
 
 Tecnologias utilizadas
 
 * [java] - Versão 11
 * [spring-boot] - Versão 2.6.3
-* [spring-security] - Versão 2.6.3
+* [spring-security] - config-server https://github.com/TaylorOliveira/config-server
 * [spring-data-jpa] - Versão 2.6.3
 * [spring-cloud] - Versão 3.1.0
 * [jUnit] - Version 5
