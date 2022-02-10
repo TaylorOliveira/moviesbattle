@@ -11,6 +11,7 @@ filmes e o jogador deve acertar aquele que possui melhor avaliação no IMDB.
 * Criptografia das propriedades sensíveis do config-serve com chave JKS
 * Adição do padrão Data, Meta e Links no response (Padrão Restfull)
 * Melhoria dos handlers para response dos cenários de exceções
+* Documentação da API
 
 ### Tecnologia
 
