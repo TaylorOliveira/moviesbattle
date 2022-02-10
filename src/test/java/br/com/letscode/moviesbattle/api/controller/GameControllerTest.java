@@ -4,7 +4,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import br.com.letscode.moviesbattle.api.model.enums.ChoiceMovieEnum;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import br.com.letscode.moviesbattle.api.utils.ResourceUtils;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import io.restassured.http.ContentType;
