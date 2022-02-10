@@ -5,7 +5,6 @@ import br.com.letscode.moviesbattle.api.model.payload.convert.ConvertToRoundVali
 import br.com.letscode.moviesbattle.api.model.payload.response.RoundValidateResponse;
 import br.com.letscode.moviesbattle.core.security.service.LoggedInUser;
 import br.com.letscode.moviesbattle.domain.config.exception.EntityNotFoundException;
-import br.com.letscode.moviesbattle.domain.config.exception.ErrorException;
 import br.com.letscode.moviesbattle.domain.model.Role;
 import br.com.letscode.moviesbattle.domain.model.User;
 import br.com.letscode.moviesbattle.domain.model.enums.ERole;
@@ -15,17 +14,16 @@ import br.com.letscode.moviesbattle.domain.service.GameUpdateService;
 import br.com.letscode.moviesbattle.domain.service.RoundChoiceService;
 import br.com.letscode.moviesbattle.domain.service.RoundService;
 import br.com.letscode.moviesbattle.domain.service.UserRoundService;
-import br.com.letscode.moviesbattle.factory.UserFactory;
+import br.com.letscode.moviesbattle.infrastructure.factory.UserFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import br.com.letscode.moviesbattle.factory.RoundFactory;
-import br.com.letscode.moviesbattle.factory.MovieFactory;
-import br.com.letscode.moviesbattle.factory.GameFactory;
+import br.com.letscode.moviesbattle.infrastructure.factory.RoundFactory;
+import br.com.letscode.moviesbattle.infrastructure.factory.MovieFactory;
+import br.com.letscode.moviesbattle.infrastructure.factory.GameFactory;
 import br.com.letscode.moviesbattle.domain.model.Round;
 import br.com.letscode.moviesbattle.domain.model.Game;
 import org.junit.jupiter.api.Test;
 
-import java.util.Collections;
 import java.util.HashSet;
 
 import static org.assertj.core.api.Assertions.assertThat;

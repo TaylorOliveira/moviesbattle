@@ -3,8 +3,8 @@ package br.com.letscode.moviesbattle.infrastructure.service;
 import br.com.letscode.moviesbattle.domain.service.UserRoundService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import br.com.letscode.moviesbattle.factory.RoundFactory;
-import br.com.letscode.moviesbattle.factory.UserFactory;
+import br.com.letscode.moviesbattle.infrastructure.factory.RoundFactory;
+import br.com.letscode.moviesbattle.infrastructure.factory.UserFactory;
 import br.com.letscode.moviesbattle.domain.model.*;
 import org.junit.jupiter.api.Test;
 

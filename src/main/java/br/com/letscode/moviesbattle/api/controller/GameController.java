@@ -30,8 +30,8 @@ public class GameController {
 
         final LoggedInUser loggedInUser = (LoggedInUser) authentication.getPrincipal();
 
-        RoundGameResponse roundGame = gameService.gameProcess(loggedInUser);
-        return ResponseEntity.ok(roundGame);
+        RoundGameResponse roundGameResponse = gameService.gameProcess(loggedInUser);
+        return ResponseEntity.ok(roundGameResponse);
     }
 
     @PostMapping("/next-quiz")

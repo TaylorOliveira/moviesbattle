@@ -1,4 +1,4 @@
-package br.com.letscode.moviesbattle.factory;
+package br.com.letscode.moviesbattle.infrastructure.factory;
 
 import br.com.letscode.moviesbattle.domain.model.Movie;
 

@@ -6,7 +6,7 @@ import br.com.letscode.moviesbattle.domain.repository.UserRepository;
 import br.com.letscode.moviesbattle.domain.service.RankingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import br.com.letscode.moviesbattle.factory.UserFactory;
+import br.com.letscode.moviesbattle.infrastructure.factory.UserFactory;
 import org.junit.jupiter.api.Test;
 import java.util.Collections;
 import org.mockito.Mockito;
