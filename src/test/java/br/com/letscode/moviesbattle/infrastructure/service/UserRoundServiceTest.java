@@ -6,8 +6,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import br.com.letscode.moviesbattle.factory.RoundFactory;
 import br.com.letscode.moviesbattle.factory.UserFactory;
 import br.com.letscode.moviesbattle.domain.model.*;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 class UserRoundServiceTest {
@@ -16,7 +17,7 @@ class UserRoundServiceTest {
     UserRoundService userRoundService;
 
     @Test
-    public void testSuccessUpdateUserInformationWithRoundResult() {
+    public void testSuccess_UpdateUserInformationWithRoundResult() {
         Round roundFactory = RoundFactory.fromType();
 
         User userActual = UserFactory.fromType();
@@ -25,7 +26,7 @@ class UserRoundServiceTest {
         User userExpected = userRoundService
                 .updateUserWithRoundResult(roundFactory);
 
-        Assertions.assertThat(userExpected)
+        assertThat(userExpected)
                 .isEqualTo(userActual);
     }
 }
