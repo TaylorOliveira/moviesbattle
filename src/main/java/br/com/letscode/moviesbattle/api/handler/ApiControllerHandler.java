@@ -1,8 +1,8 @@
-package br.com.letscode.moviesbattle.api.config.handler;
+package br.com.letscode.moviesbattle.api.handler;
 
+import br.com.letscode.moviesbattle.api.handler.response.ResponseData;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import br.com.letscode.moviesbattle.domain.config.exception.ErrorException;
-import br.com.letscode.moviesbattle.api.config.handler.response.ResponseData;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.http.ResponseEntity;

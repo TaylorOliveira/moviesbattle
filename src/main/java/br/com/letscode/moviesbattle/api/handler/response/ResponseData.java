@@ -1,4 +1,4 @@
-package br.com.letscode.moviesbattle.api.config.handler.response;
+package br.com.letscode.moviesbattle.api.handler.response;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
