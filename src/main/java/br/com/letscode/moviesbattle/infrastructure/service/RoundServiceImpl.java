@@ -2,8 +2,8 @@ package br.com.letscode.moviesbattle.infrastructure.service;
 
 import br.com.letscode.moviesbattle.api.model.payload.convert.ConvertToRoundValidateResponse;
 import br.com.letscode.moviesbattle.api.model.payload.response.RoundValidateResponse;
-import br.com.letscode.moviesbattle.domain.config.exception.EntityNotFoundException;
-import br.com.letscode.moviesbattle.domain.config.exception.ErrorException;
+import br.com.letscode.moviesbattle.domain.exception.EntityNotFoundException;
+import br.com.letscode.moviesbattle.domain.exception.ErrorException;
 import br.com.letscode.moviesbattle.core.security.service.LoggedInUser;
 import br.com.letscode.moviesbattle.domain.model.enums.RoundStatusEnum;
 import br.com.letscode.moviesbattle.domain.repository.MovieRepository;
@@ -19,8 +19,8 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.Optional;
 import java.util.List;
 
-import static br.com.letscode.moviesbattle.domain.config.exception.enums.ExceptionEnum.ENTITY_NOT_FOUND;
-import static br.com.letscode.moviesbattle.domain.config.exception.enums.ExceptionEnum.ROUND_PLAYED;
+import static br.com.letscode.moviesbattle.domain.exception.enums.ExceptionEnum.ENTITY_NOT_FOUND;
+import static br.com.letscode.moviesbattle.domain.exception.enums.ExceptionEnum.ROUND_PLAYED;
 
 @Slf4j
 @Service
@@ -53,8 +53,8 @@ public class RoundServiceImpl implements RoundService {
 
             if (isRoundValid(gameEntity, leftMovieEntity, rightMovieEntity).isEmpty()) {
                 isNotValidPair = false;
-                setRoundEntity(gameEntity, numberRound,
-                        roundEntity, leftMovieEntity, rightMovieEntity);
+                setRoundEntity(gameEntity, numberRound, roundEntity,
+                        leftMovieEntity, rightMovieEntity);
             }
         }
         return roundRepository.save(roundEntity);

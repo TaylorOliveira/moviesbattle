@@ -3,9 +3,9 @@ package br.com.letscode.moviesbattle.infrastructure.service;
 import br.com.letscode.moviesbattle.api.model.payload.response.RoundGameResponse.GameResponse;
 import br.com.letscode.moviesbattle.api.model.payload.convert.ConvertToRoundGameResponse;
 import br.com.letscode.moviesbattle.api.model.payload.convert.ConvertToGameResponse;
-import br.com.letscode.moviesbattle.domain.config.exception.EntityNotFoundException;
+import br.com.letscode.moviesbattle.domain.exception.EntityNotFoundException;
 import br.com.letscode.moviesbattle.api.model.payload.response.RoundGameResponse;
-import br.com.letscode.moviesbattle.domain.config.exception.ErrorException;
+import br.com.letscode.moviesbattle.domain.exception.ErrorException;
 import br.com.letscode.moviesbattle.core.security.service.LoggedInUser;
 import br.com.letscode.moviesbattle.domain.model.convert.ConvertToGame;
 import br.com.letscode.moviesbattle.domain.model.enums.GameStatusEnum;
@@ -20,8 +20,8 @@ import br.com.letscode.moviesbattle.domain.model.User;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
 
-import static br.com.letscode.moviesbattle.domain.config.exception.enums.ExceptionEnum.ENTITY_NOT_FOUND;
-import static br.com.letscode.moviesbattle.domain.config.exception.enums.ExceptionEnum.TOTAL_ROUNDS;
+import static br.com.letscode.moviesbattle.domain.exception.enums.ExceptionEnum.ENTITY_NOT_FOUND;
+import static br.com.letscode.moviesbattle.domain.exception.enums.ExceptionEnum.TOTAL_ROUNDS;
 
 @Slf4j
 @Service
@@ -103,9 +103,5 @@ public class GameServiceImpl implements GameService {
 
     private Game createGame(User userEntity) {
         return gameRepository.save(ConvertToGame.fromEntity(userEntity));
-    }
-
-    private String getDetail(Class clazz, Long id) {
-        return String.format(ENTITY_NOT_FOUND.getDescription(), "id", id, clazz.getName());
     }
 }

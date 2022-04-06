@@ -1,6 +1,6 @@
-package br.com.letscode.moviesbattle.domain.config.exception;
+package br.com.letscode.moviesbattle.domain.exception;
 
-import static br.com.letscode.moviesbattle.domain.config.exception.enums.ExceptionEnum.ENTITY_NOT_FOUND;
+import static br.com.letscode.moviesbattle.domain.exception.enums.ExceptionEnum.ENTITY_NOT_FOUND;
 
 public class EntityNotFoundException extends RuntimeException {
 

@@ -1,6 +1,6 @@
-package br.com.letscode.moviesbattle.domain.config.exception;
+package br.com.letscode.moviesbattle.domain.exception;
 
-import br.com.letscode.moviesbattle.domain.config.exception.enums.ExceptionEnum;
+import br.com.letscode.moviesbattle.domain.exception.enums.ExceptionEnum;
 import lombok.Getter;
 
 @Getter

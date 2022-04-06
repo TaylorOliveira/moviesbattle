@@ -1,6 +1,6 @@
 package br.com.letscode.moviesbattle.infrastructure.service;
 
-import br.com.letscode.moviesbattle.domain.config.exception.ErrorException;
+import br.com.letscode.moviesbattle.domain.exception.ErrorException;
 import br.com.letscode.moviesbattle.domain.repository.GameRepository;
 import br.com.letscode.moviesbattle.domain.service.GameUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import br.com.letscode.moviesbattle.domain.model.Game;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
 
-import static br.com.letscode.moviesbattle.domain.config.exception.enums.ExceptionEnum.GAME_TOTAL_ERRORS;
+import static br.com.letscode.moviesbattle.domain.exception.enums.ExceptionEnum.GAME_TOTAL_ERRORS;
 
 @Slf4j
 @Service
@@ -35,8 +35,7 @@ public class GameUpdateServiceImpl implements GameUpdateService {
             int numberErrors = gameEntity.getTotalErrors();
             gameEntity.setTotalErrors(numberErrors + 1);
         }
-        gameRepository.save(gameEntity);
-        return gameEntity;
+        return gameRepository.save(gameEntity);
     }
 
     private boolean ruleTotalErrors(Round roundEntity, Game gameEntity) {

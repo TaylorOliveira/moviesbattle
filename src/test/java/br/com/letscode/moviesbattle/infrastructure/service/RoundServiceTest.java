@@ -4,7 +4,7 @@ import br.com.letscode.moviesbattle.api.model.enums.ChoiceMovieEnum;
 import br.com.letscode.moviesbattle.api.model.payload.convert.ConvertToRoundValidateResponse;
 import br.com.letscode.moviesbattle.api.model.payload.response.RoundValidateResponse;
 import br.com.letscode.moviesbattle.core.security.service.LoggedInUser;
-import br.com.letscode.moviesbattle.domain.config.exception.EntityNotFoundException;
+import br.com.letscode.moviesbattle.domain.exception.EntityNotFoundException;
 import br.com.letscode.moviesbattle.domain.model.Role;
 import br.com.letscode.moviesbattle.domain.model.User;
 import br.com.letscode.moviesbattle.domain.model.enums.ERole;
@@ -71,11 +71,6 @@ class RoundServiceTest {
 
     @Test
     void exceptionTest_idInvalid_ProcessRound() {
-        RoundRepository mockRoundRepository = mock(RoundRepository.class);
-        RoundChoiceService mockRoundChoiceService = mock(RoundChoiceService.class);
-        GameUpdateService mockGameUpdateService = mock(GameUpdateService.class);
-        UserRoundService mockUserRoundService = mock(UserRoundService.class);
-
         LoggedInUser loggedInUser = LoggedInUser.build(getUserFactory());
 
         assertThrows(EntityNotFoundException.class,
@@ -84,7 +79,6 @@ class RoundServiceTest {
 
     @Test
     void successTest_ProcessRound() {
-        RoundRepository mockRoundRepository = mock(RoundRepository.class);
         RoundChoiceService mockRoundChoiceService = mock(RoundChoiceService.class);
         GameUpdateService mockGameUpdateService = mock(GameUpdateService.class);
         UserRoundService mockUserRoundService = mock(UserRoundService.class);
@@ -102,9 +96,6 @@ class RoundServiceTest {
         User userFactory = UserFactory.fromType();
         when(mockUserRoundService.updateUserWithRoundResult(any()))
                 .thenReturn(userFactory);
-
-        RoundValidateResponse roundValidateResponse =
-                ConvertToRoundValidateResponse.fromResponse(roundFactory);
 
         assertThrows(EntityNotFoundException.class,
                 () -> roundService.processRound(loggedInUser, 100L, ChoiceMovieEnum.LEFT));

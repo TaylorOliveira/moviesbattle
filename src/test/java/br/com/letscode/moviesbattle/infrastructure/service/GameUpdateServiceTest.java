@@ -1,6 +1,6 @@
 package br.com.letscode.moviesbattle.infrastructure.service;
 
-import br.com.letscode.moviesbattle.domain.config.exception.ErrorException;
+import br.com.letscode.moviesbattle.domain.exception.ErrorException;
 import br.com.letscode.moviesbattle.domain.service.GameUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
