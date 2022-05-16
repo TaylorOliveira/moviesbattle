@@ -23,7 +23,6 @@ import br.com.letscode.moviesbattle.infrastructure.factory.GameFactory;
 import br.com.letscode.moviesbattle.domain.model.Round;
 import br.com.letscode.moviesbattle.domain.model.Game;
 import org.junit.jupiter.api.Test;
-
 import java.util.HashSet;
 
 import static org.assertj.core.api.Assertions.assertThat;

@@ -19,7 +19,6 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.Optional;
 import java.util.List;
 
-import static br.com.letscode.moviesbattle.domain.exception.enums.ExceptionEnum.ENTITY_NOT_FOUND;
 import static br.com.letscode.moviesbattle.domain.exception.enums.ExceptionEnum.ROUND_PLAYED;
 
 @Slf4j
@@ -50,7 +49,6 @@ public class RoundServiceImpl implements RoundService {
         while (isNotValidPair) {
             Movie leftMovieEntity = movieRepository.getRandomMovie();
             Movie rightMovieEntity = movieRepository.getRandomMovie();
-
             if (isRoundValid(gameEntity, leftMovieEntity, rightMovieEntity).isEmpty()) {
                 isNotValidPair = false;
                 setRoundEntity(gameEntity, numberRound, roundEntity,
@@ -93,7 +91,6 @@ public class RoundServiceImpl implements RoundService {
 
     private int getNumberRound(Game gameEntity) {
         List<Round> roundsEntity = roundRepository.findRoundsByGame(gameEntity);
-
         int numberRound = 1;
         if (!roundsEntity.isEmpty()) {
             numberRound = addRound(roundsEntity);
@@ -109,10 +106,6 @@ public class RoundServiceImpl implements RoundService {
                                          Movie rightMovieEntity) {
         return roundRepository.validMoviesRound(gameEntity.getId(),
                 leftMovieEntity.getId(), rightMovieEntity.getId());
-    }
-
-    private String getDetail(Class clazz, Long id) {
-        return String.format(ENTITY_NOT_FOUND.getDescription(), "id", id, clazz.getName());
     }
 
     private void setRoundEntity(Game gameEntity, int numberRound, Round roundEntity,

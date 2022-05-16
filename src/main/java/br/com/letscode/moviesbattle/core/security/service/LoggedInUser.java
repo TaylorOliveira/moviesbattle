@@ -1,10 +1,14 @@
 package br.com.letscode.moviesbattle.core.security.service;
 
+import br.com.letscode.moviesbattle.domain.model.Role;
+import br.com.letscode.moviesbattle.domain.model.enums.ERole;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.GrantedAuthority;
 import br.com.letscode.moviesbattle.domain.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.Collections;
 import java.util.stream.Collectors;
 import java.util.Collection;
 import java.util.List;

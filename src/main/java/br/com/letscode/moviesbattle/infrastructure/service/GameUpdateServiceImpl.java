@@ -26,24 +26,24 @@ public class GameUpdateServiceImpl implements GameUpdateService {
     public Game updateGameWithRoundResult(Round roundEntity) {
         Game gameEntity = roundEntity.getGame();
         int totalRounds = gameEntity.getTotalRounds();
-        gameEntity.setTotalRounds(totalRounds + 1);
+        gameEntity.setTotalRounds(++totalRounds);
 
-        if (ruleTotalErrors(roundEntity, gameEntity)) {
+        if (isLessThanTheTotalNumberOfErrorsAllowed(roundEntity, gameEntity)) {
             throw new ErrorException(GAME_TOTAL_ERRORS);
 
-        } else if (isNotCorrect(roundEntity)) {
+        } else if (itNotCorrect(roundEntity)) {
             int numberErrors = gameEntity.getTotalErrors();
-            gameEntity.setTotalErrors(numberErrors + 1);
+            gameEntity.setTotalErrors(++numberErrors);
         }
         return gameRepository.save(gameEntity);
     }
 
-    private boolean ruleTotalErrors(Round roundEntity, Game gameEntity) {
-        return isNotCorrect(roundEntity) &&
+    private boolean isLessThanTheTotalNumberOfErrorsAllowed(Round roundEntity, Game gameEntity) {
+        return itNotCorrect(roundEntity) &&
                 gameEntity.getTotalErrors() == TOTAL_ERRORS_ALLOWED;
     }
 
-    private boolean isNotCorrect(Round roundEntity) {
+    private boolean itNotCorrect(Round roundEntity) {
         return !roundEntity.isCorrect();
     }
 }

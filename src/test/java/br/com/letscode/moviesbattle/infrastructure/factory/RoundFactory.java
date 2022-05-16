@@ -19,11 +19,4 @@ public abstract class RoundFactory {
                 .status(RoundStatusEnum.NOT_PLAYED)
                 .build();
     }
-
-    public static List<Round> fromList() {
-        List<Round> rounds = new ArrayList<>();
-        rounds.add(fromType());
-        rounds.add(fromType());
-        return rounds;
-    }
 }

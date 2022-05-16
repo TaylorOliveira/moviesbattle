@@ -21,7 +21,7 @@ public abstract class ConvertToUserResponse {
         List<UserResponse> userResponses = new ArrayList<>();
         for (User user : users) {
             userResponses.add(fromResponse(user, count));
-            count = count + 1;
+            count++;
         }
         return userResponses;
     }

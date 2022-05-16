@@ -18,9 +18,7 @@ public class RankingServiceImpl implements RankingService {
     private UserRepository userRepository;
 
     public RankingResponse getRanking() {
-
         List<User> users = userRepository.findAllByOrderByScoreDesc();
-
         return ConvertToRankingResponse.fromResponse(users);
     }
 }

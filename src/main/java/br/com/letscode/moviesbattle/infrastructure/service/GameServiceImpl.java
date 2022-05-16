@@ -20,7 +20,6 @@ import br.com.letscode.moviesbattle.domain.model.User;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
 
-import static br.com.letscode.moviesbattle.domain.exception.enums.ExceptionEnum.ENTITY_NOT_FOUND;
 import static br.com.letscode.moviesbattle.domain.exception.enums.ExceptionEnum.TOTAL_ROUNDS;
 
 @Slf4j
