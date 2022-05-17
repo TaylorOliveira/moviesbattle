@@ -10,7 +10,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import br.com.letscode.moviesbattle.infrastructure.factory.UserFactory;
 import org.junit.jupiter.api.Test;
-
 import java.util.Collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -28,11 +27,10 @@ class RankingServiceTest {
     @DisplayName("Returns the ranking of users")
     void testSuccess_GetRanking() {
         RankingResponse rankingResponseActual =
-                ConvertToRankingResponse.fromResponse(Collections.singletonList(UserFactory.fromType()));
-
+                ConvertToRankingResponse.fromResponse(Collections
+                        .singletonList(UserFactory.fromType()));
         when(mockUserRepository.findAllByOrderByScoreDesc())
                 .thenReturn(Collections.singletonList(UserFactory.fromType()));
-
         assertThat(rankingService.getRanking())
                 .isEqualTo(rankingResponseActual);
     }

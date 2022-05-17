@@ -27,7 +27,6 @@ public class GameUpdateServiceImpl implements GameUpdateService {
         Game gameEntity = roundEntity.getGame();
         int totalRounds = gameEntity.getTotalRounds();
         gameEntity.setTotalRounds(++totalRounds);
-
         if (isLessThanTheTotalNumberOfErrorsAllowed(roundEntity, gameEntity)) {
             throw new ErrorException(GAME_TOTAL_ERRORS);
 

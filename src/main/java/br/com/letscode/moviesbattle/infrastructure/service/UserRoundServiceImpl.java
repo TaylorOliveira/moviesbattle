@@ -4,6 +4,7 @@ import br.com.letscode.moviesbattle.domain.repository.UserRepository;
 import br.com.letscode.moviesbattle.domain.service.UserRoundService;
 import br.com.letscode.moviesbattle.domain.model.Round;
 import br.com.letscode.moviesbattle.domain.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
 
@@ -11,11 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class UserRoundServiceImpl implements UserRoundService {
 
-    private final UserRepository userRepository;
-
-    public UserRoundServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public User updateUserWithRoundResult(Round roundEntity) {

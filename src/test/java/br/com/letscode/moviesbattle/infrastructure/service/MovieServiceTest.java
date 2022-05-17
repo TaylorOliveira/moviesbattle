@@ -1,6 +1,7 @@
 package br.com.letscode.moviesbattle.infrastructure.service;
 
 import br.com.letscode.moviesbattle.domain.repository.MovieRepository;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -22,10 +23,9 @@ class MovieServiceTest {
     private MovieRepository movieRepository;
 
     @Test
+    @DisplayName("Test the movies creating")
     public void testSuccess_CreateMovies() {
-
         when(movieRepository.saveAll(anyCollection())).thenReturn(anyList());
-
         assertDoesNotThrow(() -> movieService.createMovies(Collections.emptyList()));
     }
 }

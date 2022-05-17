@@ -44,7 +44,6 @@ public class RoundServiceImpl implements RoundService {
     public Round initializeRound(Game gameEntity) {
         int numberRound = getNumberRound(gameEntity);
         Round roundEntity = new Round();
-
         boolean isNotValidPair = true;
         while (isNotValidPair) {
             Movie leftMovieEntity = movieRepository.getRandomMovie();
@@ -63,26 +62,21 @@ public class RoundServiceImpl implements RoundService {
                                               ChoiceMovieEnum userChoice) {
         Round roundEntity = roundRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(Round.class, id));
-
         if (isRoundPlayed(roundEntity)) {
             throw new ErrorException(ROUND_PLAYED);
         }
-
         roundEntity = roundChoiceService
                 .validateSelectedMovieInRound(userChoice, roundEntity);
         roundRepository.save(roundEntity);
-
         gameUpdateService.updateGameWithRoundResult(roundEntity);
-
         userRoundService.updateUserWithRoundResult(roundEntity);
-
         return ConvertToRoundValidateResponse.fromResponse(roundEntity);
     }
 
     @Override
     public Round getRoundNotPayed(Game gameEntity) {
-        return roundRepository.findRoundByGameAndStatusNotPlayed(RoundStatusEnum.NOT_PLAYED,
-                gameEntity).orElse(null);
+        return roundRepository.findRoundByGameAndStatusNotPlayed(RoundStatusEnum.NOT_PLAYED, gameEntity)
+                .orElse(null);
     }
 
     private boolean isRoundPlayed(Round round) {
